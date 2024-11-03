@@ -4,6 +4,7 @@
     import Project from '../components/Project.svelte';
     import Expanded from '../components/Expanded.svelte';
 
+
 	// Projects
 	const projects = [
         {

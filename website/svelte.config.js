@@ -1,18 +1,24 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	// Consult https://svelte.dev/docs/kit/integrations
-	// for more information about preprocessors
-	preprocess: vitePreprocess(),
+    preprocess: vitePreprocess(),
 
-	kit: {
-		// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
-		// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
-		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
-		adapter: adapter()
-	}
+    kit: {
+        adapter: adapter({
+            // By default, the adapter will output to the 'build' directory,
+            // but you can specify your own paths for pages and assets.
+            pages: 'build',  // Where to output the built pages
+            assets: 'build',  // Where to output the assets (images, styles, etc.)
+            fallback: 'index.html',
+			strict: false    // As long as you have no other subdirectories, this is fine
+        }),
+        // Optional: configure the paths for the base (useful if deploying to a subdirectory)
+        // paths: {
+        //     base: '/your-subdirectory',
+        // },
+    }
 };
 
 export default config;
