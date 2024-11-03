@@ -1,0 +1,166 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* MAIN HTML TAGS */
+
+body {
+    background-color: #18181b;
+    color: #d8d8da;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+nav {
+    backdrop-filter: blur(10px);
+    background-color: #18181b;
+    text-align: right;
+}
+
+/* HEADINGS */
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* TEXT */
+
+p {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+/* LINKS */
+
+a {
+    color: #86A6D7;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: #a1c2d4;
+    }
+}
+
+a.active {
+    color: #adc1de; 
+}
+
+/* MAIN */
+
+main {
+    background-color: #18181b;
+    padding: 2rem;
+}
+
+/* SECTION */
+
+section {
+    padding: 2rem;
+    background-color: #1b1b1e;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+section h2 {
+    color: #86A6D7;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    /* Stack the columns vertically for smaller screens */
+    .flex {
+        flex-direction: column;
+    }
+
+    nav {
+        width: 100%;
+        text-align: center;
+    }
+
+    main {
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+}
+
+/* PROJECTS */
+
+.project-card {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+}
+
+.project-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.image-container {
+    width: 100%;
+    height: 60%;
+    overflow: hidden;
+    position: relative;
+}
+
+.project-image {
+    width: 100%;
+    height: auto;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-image {
+    opacity: 0.9;
+}
+
+.info {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.info h3 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.info p {
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+    color: #888;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.links a {
+    display: inline-block;
+    margin-right: 1rem;
+    color: #86A6D7;
+    transition: color 0.3s ease;
+}
+
+.links a:hover {
+    color: #a1c2d4;
+}
+
