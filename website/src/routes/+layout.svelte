@@ -14,7 +14,7 @@
             gifUrl: "/newsvibe/gif.gif",
             galleryImages: ["/newsvibe/main.png", "/newsvibe/about.png", "/newsvibe/breaking.png", "/newsvibe/results.png", "/newsvibe/settings.png"],
             githubUrl: "https://github.com/ivanharvard/newsvibe",
-            youtubeUrl: "https://www.youtube.com/watch?v=HBlQM9oWHA4"
+            youtubeUrl: "https://youtu.be/E8BOpUrNCRs"
         },
     ];
 
@@ -98,7 +98,15 @@
         <section id="about-me" class="mb-12">
             <h2 class="text-3xl font-semibold mb-4">About Me</h2>
             <p>
-				Hi, I'm Ivan! I'm a Computer Science and Applied Math in Data Science student at Harvard University. I'm passionate about software development, machine learning, and data science. I'm always looking for new opportunities to learn and grow. Feel free to reach out to me at <a href="mailto:igzjobs@gmail.com" class="hover:underline">igzjobs@gmail.com</a>.	
+				Hi, I'm Ivan! I'm a student at Harvard University, pursuing a 
+				double concentration in Computer Science as well as Applied Math 
+				in Data Science. I'm passionate about software development, 
+				privacy, cybersecurity, and data science. I'm always looking for 
+				new opportunities to learn and grow. Feel free to reach out to 
+				me at 
+				<a href="mailto:igzjobs@gmail.com" class="hover:underline">
+					igzjobs@gmail.com
+				</a>.	
 			</p>
         </section>
   
@@ -109,14 +117,16 @@
 			{/each}
         </section>
   
-        <section id="contact" class="mb-12">
+        <section id="contact">
             <h2 class="text-3xl font-semibold mb-4">Contact</h2>
 			<h1 class="text-xl mb-0">Ivan Gutierrez</h1>
-			<p>Harvard University</p>
-            <ul class="contact-links">
-				<li><svg></svg> <a href="mailto:igzjobs@gmail.com" class="hover:underline">igzjobs@gmail.com</a></li>
-				<li><svg></svg> <a href="github.com/ivanharvard" class="hover:underline">github.com/ivanharvard</a></li>
-				<li><svg></svg> <a href="instagram.com/ivangz__2" class="hover:underline">instagram.com/ivangz__2</a></li>
+			<a href="mailto:igzjobs@gmail.com" class="hover:underline text-xl">igzjobs@gmail.com</a>
+			<br><br>
+            <ul class="contact-links mb-1 text-xl">
+				<li> <a href="https://github.com/ivanharvard" target="_blank" class="hover:underline">github.com/ivanharvard</a></li>
+				<li> <a href="https://linkedin.com/in/-ivan-gutierrez" target="_blank" class="hover:underline">linkedin.com/in/-ivan-gutierrez</a></li>
+				<li> <a href="https://youtube.com/@gutierrezivan-com" target="_blank" class="hover:underline">youtube.com/@gutierrezivan-com</a></li>
+				<li> <a href="https://instagram.com/ivangz__2" target="_blank"class="hover:underline">instagram.com/ivangz__2</a></li>
 			</ul>
         </section>
     </main>
