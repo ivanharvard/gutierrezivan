@@ -1,0 +1,15 @@
+[
+    {
+        "title": "NewsVibe",
+        "blurb": "A web app that uses machine learning to estimate the sentiment of news organizations on a user-inputted topic.",
+        "codeUrl": "https://github.com/ivanharvard/newsvibe",
+        "tags": ["Python", "Flask", "HTML/CSS", "JavaScript", "Machine Learning"]
+    },
+    {
+        "title": "gutierrezivan.com",
+        "blurb": "My personal website (that you're on right now!) built with React and Vite.",
+        "liveUrl": "https://gutierrezivan.com",
+        "codeUrl": "https://github.com/ivanharvard/gutierrezivan",
+        "tags": ["TypeScript", "React", "Vite", "HTML/CSS"]
+    }
+]
