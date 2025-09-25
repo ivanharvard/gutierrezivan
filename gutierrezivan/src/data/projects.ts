@@ -8,6 +8,9 @@ export type Project = {
     tags?: string[];
 };
 
+/// useProjects()
+/// Imports and fetches the projects.json file.
+
 export function useProjects() {
     const [data, setData] = useState<Project[] | null> (null);
     const [error, setError] = useState<string | null> (null);
