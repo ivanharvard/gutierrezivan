@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export type Project = {
     title: string;
@@ -16,21 +16,21 @@ export function useProjects() {
     const [error, setError] = useState<string | null> (null);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        // Import the projects.json URL relative to the base URL
-        const url = new URL("projects.json", import.meta.env.BASE_URL).toString();
-        fetch(url, { cache: "no-store" })
-            .then(async (res) => {
-                if (!res.ok) {
-                    throw new Error(`HTTP ${res.status}`);
-                }
+    try {
+      const url = new URL("projects.json", document.baseURI).toString();
 
-                return res.json();
-            })
-            .then((json: Project[]) => setData(json))
-            .catch((err) => setError(err.message))
-            .finally(() => setLoading(false));
-    }, []);
+      fetch(url, { cache: "no-store" })
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
+        })
+        .then((json: Project[]) => setData(json))
+        .catch((e) => setError(e instanceof Error ? e.message : String(e)))
+        .finally(() => setLoading(false));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+      setLoading(false);
+    }
 
     return { data, error, loading };
 }

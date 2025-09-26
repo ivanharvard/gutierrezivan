@@ -56,7 +56,7 @@ body {
 .terminal {
   position: fixed;
   left: 0; right: 0;
-  bottom: calc(-60vh + 36px); /* peek height visible */
+  bottom: calc(-59vh + 36px); /* peek height visible */
   height: 60vh;
   background: var(--mono-bg);
   color: var(--mono-text);
@@ -73,9 +73,57 @@ body {
   height: 20px;
   display: grid;
   place-items: center;
-  cursor: ns-resize;
+  cursor: grab;
 }
 .terminal .grab .bar {
   width: 48px; height: 4px; border-radius: 999px;
   background: #2a2a2a;
 }
+
+/* Container & header */
+.wrap { max-width: 1000px; margin: 0 auto; padding: 56px 20px 96px; }
+.header { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:28px; }
+.brand { display:flex; align-items:center; gap:14px; }
+.avatar { width:48px; height:48px; border-radius:14px; background: linear-gradient(135deg,#dfe9f3,#ffffff); border:1px solid #e9e9e9; }
+.title { font-weight:800; letter-spacing:.4px; font-size:22px; }
+.pill { border:1px solid var(--ring); border-radius:999px; padding:6px 12px; background:var(--card); }
+
+/* Directory buttons */
+.grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:12px; margin-bottom:24px; }
+.dir {
+  display:flex; align-items:center; gap:12px; padding:16px 14px; background:var(--card);
+  border:1px solid var(--ring); border-radius:16px; text-decoration:none; color:inherit; position:relative;
+  transition: transform .08s ease, box-shadow .08s ease, border-color .2s ease;
+  box-shadow:0 1px 0 rgba(0,0,0,.03);
+}
+.dir:hover { transform: translateY(-1px); box-shadow:0 6px 18px rgba(0,0,0,.07); }
+.dir:focus-visible { outline:3px solid var(--accent); }
+.icon {
+  width:30px; height:30px; border-radius:8px;
+  background:radial-gradient(120% 120% at 0% 0%, var(--accent), transparent 70%),
+             linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.2));
+  border:1px solid var(--ring);
+}
+.dir b { display:block; font-weight:600; }
+.dir small { display:block; color: var(--muted); }
+
+/* Sections & cards */
+section { margin:36px 0; }
+h2 { font-size:20px; margin:0 0 12px 0; }
+.stack { display:flex; flex-wrap:wrap; gap:8px; }
+.tag { border:1px solid var(--ring); padding:6px 10px; border-radius:999px; font-size:13px; background:var(--bg); }
+
+/* Projects */
+.projects { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:12px; }
+.proj { display:flex; flex-direction:column; gap:10px; }
+.proj h3 { margin:0; font-size:16px; }
+.proj p { margin:0; color:var(--muted); font-size:14px; }
+.proj .actions { display:flex; gap:8px; }
+.btn {
+  display:inline-flex; align-items:center; gap:6px; border:1px solid var(--ring); background:var(--card);
+  padding:8px 10px; border-radius:12px; text-decoration:none; color:inherit;
+}
+.btn:hover { border-color: var(--accent); }
+
+/* Footer */
+footer { margin-top:48px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
