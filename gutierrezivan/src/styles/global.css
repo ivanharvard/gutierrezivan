@@ -1,0 +1,53 @@
+/* global.css */
+:root {
+  /* surface + text */
+  --bg:      #fafafa;
+  --text:    #141414;
+  --muted:   #6b6b6b;
+
+  /* components */
+  --card:    #ffffff;
+  --ring:    #c9d6ff;
+  --accent:  #0f62fe;
+
+  /* terminal-ish */
+  --mono-bg:   #0c0c0c;
+  --mono-text: #e6e6e6;
+}
+
+/* dark theme overrides (when html[data-theme="dark"]) */
+html[data-theme="dark"] {
+  --bg:    #0b0b0b;
+  --text:  #eaeaea;
+  --muted: #9b9b9b;
+
+  --card:  #111111;
+  --ring:  #1f2937;
+  --accent:#7dd3fc;
+
+  --mono-bg:   #0c0c0c;
+  --mono-text: #e6e6e6;
+}
+
+/* base usage */
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+  line-height: 1.6;
+}
+
+/* examples of components reading the tokens */
+.card {
+  background: var(--card);
+  border: 1px solid var(--ring);
+  border-radius: 16px;
+  padding: 18px;
+}
+.muted { color: var(--muted); }
+.btn:hover { border-color: var(--accent); }
+
+/* smoothen theme switch */
+* { transition: background-color .18s ease, color .18s ease, border-color .18s ease; }
