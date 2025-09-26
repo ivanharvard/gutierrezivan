@@ -88,11 +88,41 @@ export default function TerminalOverlay({
     else { setHeight(prevHeight); setPrevHeight(null); }
   };
 
-  // click anywhere to focus input (ignore buttons)
+  // click anywhere to focus input (ignore buttons and drag areas)
   const focusIfTerminal = (e: React.MouseEvent) => {
     const t = e.target as HTMLElement;
     if (t.closest(".term-dots") || t.closest(".grab")) return;
-    inputRef.current?.focus();
+    
+    // Also ignore if clicking on input itself (already focused)
+    if (t.tagName === 'INPUT') return;
+    
+    // Focus with a small delay to ensure other handlers complete
+    requestAnimationFrame(() => {
+      inputRef.current?.focus();
+    });
+  };
+
+  // Track mouse down/up for text selection vs click detection
+  const [mouseDownPos, setMouseDownPos] = useState<{x: number, y: number} | null>(null);
+
+  const onTerminalMouseDown = (e: React.MouseEvent) => {
+    setMouseDownPos({ x: e.clientX, y: e.clientY });
+  };
+
+  const onTerminalMouseUp = (e: React.MouseEvent) => {
+    if (!mouseDownPos) return;
+    
+    // Calculate distance moved
+    const dx = Math.abs(e.clientX - mouseDownPos.x);
+    const dy = Math.abs(e.clientY - mouseDownPos.y);
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    
+    // Only focus if it was a click (not a drag for text selection)
+    if (distance < 5) { // 5px tolerance for click vs drag
+      focusIfTerminal(e);
+    }
+    
+    setMouseDownPos(null);
   };
 
   // right-click paste
@@ -130,7 +160,8 @@ export default function TerminalOverlay({
       className={`terminal ${open ? "open" : ""} ${nudging ? "nudge" : ""} ${isDragging ? "dragging" : ""}`}
       style={{ height, bottom: open ? 0 : `calc(-${height}px + 36px)` }}
       role="dialog" aria-modal="true" aria-label="Terminal"
-      onMouseDown={focusIfTerminal}
+      onMouseDown={onTerminalMouseDown}
+      onMouseUp={onTerminalMouseUp}
       onMouseMove={() => (lastInteractRef.current = Date.now())}
       onKeyDown={() => (lastInteractRef.current = Date.now())}
       onContextMenu={onContextMenu}
