@@ -20,7 +20,7 @@ export default function SectionView(
             <section id="about">
                 <h2>about/</h2>
                 <div className="card">
-                    <p>bio and stuff</p>
+                    <p id="aboutText">bio and stuff</p>
                 </div>
             </section>
         );
@@ -45,7 +45,9 @@ export default function SectionView(
             <section id="contact">
                 <h2>contact/</h2>
                 <div className="card">
-                    <p>Get in touch!</p>
+                    <p id="email">igzjobs@gmail.com</p>
+                    <p id="github">https://www.github.com/ivanharvard</p>
+                    <p id="linkedin">https://www.linkedin.com/in/-ivan-gutierrez/</p>
                 </div>
             </section>
         );
