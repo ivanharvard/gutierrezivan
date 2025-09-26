@@ -1,4 +1,3 @@
-import '../styles/global.css';
 import type { Section } from '../types/section';
 
 export default function DirectoryGrid({ onSelect }: { onSelect: (s: Section) => void }) {
