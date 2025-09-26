@@ -3,10 +3,9 @@ import './styles/global.css'
 import RootHeader from './components/RootHeader';
 import DirectoryGrid from "./components/DirectoryGrid"; 
 import SectionView from "./components/SectionView";
-import TerminalOverlay from "./components/TerminalOverlay";
-import ProjectCard from './components/ProjectCard';
-import { useProjects } from './data/projects';
+import TerminalOverlay from "./components/TerminalOverlay"; 
 import { getTheme, setTheme, applyAuto } from './theme';
+import type { Section } from './types/section';
 
 // Set initial theme
 const saved = getTheme();
@@ -16,7 +15,6 @@ if (saved === 'auto') {
     setTheme(saved);
 }
 
-type Section = 'root' | 'about' | 'projects' | 'contact';
 
 export default function App() {
   const [section, setSection] = useState<Section>('root');
@@ -56,28 +54,4 @@ export default function App() {
       </div>
     </>
   )
-
-  // const { data: projects, error, loading } = useProjects();
-
-  // return (
-  //   <>
-  //     <div className="wrap">
-  //       {/* ... header, directorygrid, etc. ... */}
-
-  //       <section id="projects">
-  //         <h2>projects/</h2>
-  //         {/* Load projects */}
-  //         <div className="projects">
-  //           {loading && <div className="card proj"><p>Loading...</p></div>}
-  //           {error && <div className="card proj"><p>Failed to load projects: {error}</p></div>}
-  //           {projects && projects.map((project) => (
-  //             <ProjectCard key={project.title} {...project} />
-  //           ))}
-  //         </div>
-  //       </section>
-  //     </div>
-
-  //     {/*... terminal ...*/}
-  //   </>
-  // )
 }
