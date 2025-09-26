@@ -68,16 +68,100 @@ body {
 }
 .terminal.open { bottom: 0; }
 
-/* the “grab” strip so it feels draggable */
-.terminal .grab {
-  height: 20px;
-  display: grid;
-  place-items: center;
-  cursor: grab;
+/* animate height changes too for smooth maximize/restore */
+.terminal { transition: bottom .25s ease, height .25s ease; }
+
+/* no animation while dragging for snappy feel */
+.terminal.dragging { transition: none !important; }
+
+/* optional: better drag feel – prevent text selection & show resize cursor */
+.terminal.dragging, .terminal.dragging * {
+  user-select: none;
+  cursor: ns-resize;
 }
-.terminal .grab .bar {
-  width: 48px; height: 4px; border-radius: 999px;
-  background: #2a2a2a;
+
+/* header chrome + hover affordance */
+.term-head { display:flex; align-items:center; gap:12px; padding:10px 12px; border-bottom:1px solid #1a1a1a; user-select:none; cursor: ns-resize; }
+.term-dots { display:flex; gap:8px; }
+.dot { width:12px; height:12px; border-radius:50%; border:0; padding:0; transition: transform .08s ease, filter .12s ease; }
+.dot:hover { transform: scale(1.08); filter: brightness(1.1); }
+.dot:active { transform: scale(0.96); }
+.dot.red { background:#ff5f56; } .dot.yellow { background:#ffbd2e; } .dot.green { background:#27c93f; }
+.term-title { opacity:.7; font-size:12px; flex:1; text-align:center; pointer-events:none; }
+.term-spacer { width:64px; }
+
+/* body + monospace */
+.term-body { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:var(--mono-bg); color:var(--mono-text); overflow:auto; padding:14px; font-size: 13px;}
+.term-body .line { margin:0; white-space: pre-wrap; }
+
+/* inline input line (no separator) */
+.input-line {
+  display:flex; align-items:center; gap:10px;
+  /* same look as body (no divider line) */
+  padding: 6px 0 0 0;
+  font: inherit; color: inherit;
+}
+
+/* subtle “terminal-ish” input box but inline */
+.input-line input{
+  flex:1;
+  color: var(--mono-text) !important;
+  font: inherit;
+  background: rgba(255,255,255,.035);
+  border: 1px solid #1f1f1f;
+  border-radius: 8px;
+  padding: 8px 10px;
+  outline: none;
+}
+.input-line input::placeholder { color: rgba(230,230,230,.35); }
+
+/* prompt style */
+.prompt { opacity:.85; }
+
+/* bottom grab */
+.grab { height:14px; display:grid; place-items:center; cursor: ns-resize; }
+.grab .bar { width:48px; height:4px; border-radius:999px; background:#2a2a2a; }
+
+/* idle nudge */
+.terminal.nudge { animation: term-bounce .8s ease; }
+@keyframes term-bounce {
+  0% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+  60% { transform: translateY(0); }
+  80% { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
+}
+
+/* Match <pre> exactly */
+.input-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;     /* same as term-body */
+  font-size: inherit;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+.input-line .prompt {
+  white-space: pre;
+}
+
+.input-line input {
+  flex: 1;
+  font: inherit;            /* inherit font-size, line-height */
+  color: inherit;
+  background: transparent;  /* remove white background */
+  border: none;             /* remove border */
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Remove weird caret shift on some browsers */
+.input-line input::placeholder {
+  color: rgba(230, 230, 230, 0.35);
 }
 
 /* Container & header */
@@ -127,3 +211,5 @@ h2 { font-size:20px; margin:0 0 12px 0; }
 
 /* Footer */
 footer { margin-top:48px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+
+

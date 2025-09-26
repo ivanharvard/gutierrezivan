@@ -34,7 +34,7 @@ export default function App() {
 
   // keyboard shortcuts definition
   const onKey = useCallback((e: KeyboardEvent) => {
-    if (e.key === "`") setTerminalOpen(v => !v);
+    if (e.key === "`" && !terminalOpen) setTerminalOpen(v => !v);
     if (e.key === "Escape") setTerminalOpen(false);
   }, []);
 
