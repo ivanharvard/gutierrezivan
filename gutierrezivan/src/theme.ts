@@ -2,6 +2,8 @@ type Mode = 'light' | 'dark' | 'auto' | 'toggle';
 
 const KEY = "theme";
 
+/// getTheme()
+///     Reads the theme from localStorage. If not found, returns 'auto'.
 
 export function getTheme(): Exclude<Mode, 'toggle'> {
     const saved = localStorage.getItem(KEY) as Mode | null;
@@ -10,6 +12,9 @@ export function getTheme(): Exclude<Mode, 'toggle'> {
     }
     return saved;
 }
+
+/// setTheme(mode)
+///     Sets the theme to 'light', 'dark', 'auto', or toggles between light and dark.
 
 export function setTheme(mode: Mode) {
     const root = document.documentElement;
@@ -30,6 +35,9 @@ export function setTheme(mode: Mode) {
     root.setAttribute("data-theme", mode); // light or dark
     localStorage.setItem(KEY, mode);
 }
+
+/// applyAuto()
+///     Applies the 'auto' theme based on system preferences.
 
 export function applyAuto() {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
