@@ -51,3 +51,31 @@ body {
 
 /* smoothen theme switch */
 * { transition: background-color .18s ease, color .18s ease, border-color .18s ease; }
+
+
+.terminal {
+  position: fixed;
+  left: 0; right: 0;
+  bottom: calc(-60vh + 36px); /* peek height visible */
+  height: 60vh;
+  background: var(--mono-bg);
+  color: var(--mono-text);
+  border-top: 1px solid #222;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -10px 40px rgba(0,0,0,.35);
+  transition: bottom .25s ease;
+  z-index: 50;
+}
+.terminal.open { bottom: 0; }
+
+/* the “grab” strip so it feels draggable */
+.terminal .grab {
+  height: 20px;
+  display: grid;
+  place-items: center;
+  cursor: ns-resize;
+}
+.terminal .grab .bar {
+  width: 48px; height: 4px; border-radius: 999px;
+  background: #2a2a2a;
+}

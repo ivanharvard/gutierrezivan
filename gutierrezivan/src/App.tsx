@@ -1,6 +1,11 @@
+import { useEffect, useState, useCallback } from 'react';
 import './styles/global.css'
-import { useProjects } from './data/projects';
+import RootHeader from './components/RootHeader';
+import DirectoryGrid from "./components/DirectoryGrid"; 
+import SectionView from "./components/SectionView";
+import TerminalOverlay from "./components/TerminalOverlay";
 import ProjectCard from './components/ProjectCard';
+import { useProjects } from './data/projects';
 import { getTheme, setTheme, applyAuto } from './theme';
 
 // Set initial theme
@@ -11,31 +16,68 @@ if (saved === 'auto') {
     setTheme(saved);
 }
 
-document.documentElement.setAttribute("data-theme", "light");
-
+type Section = 'root' | 'about' | 'projects' | 'contact';
 
 export default function App() {
-  const { data: projects, error, loading } = useProjects();
+  const [section, setSection] = useState<Section>('root');
+  const [terminalOpen, setTerminalOpen] = useState(false);
+
+  // sync with hash
+  useEffect(() => {
+    // on load, set section from hash
+    const fromHash = (h: string): Section => 
+      (["root", "about", "projects", "contact"].includes(h) ? (h as Section) : 'root');
+    const apply = () => setSection(fromHash(location.hash.replace("#", "")));
+    apply();
+
+    window.addEventListener("hashchange", apply);
+    return () => window.removeEventListener("hashchange", apply);
+  }, []);
+
+  // keyboard shortcuts definition
+  const onKey = useCallback((e: KeyboardEvent) => {
+    if (e.key === "`") setTerminalOpen(v => !v);
+    if (e.key === "Escape") setTerminalOpen(false);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onKey]);
 
   return (
     <>
       <div className="wrap">
-        {/* ... header, directorygrid, etc. ... */}
+        <RootHeader />
+        <DirectoryGrid onSelect={(s) => (location.hash = s === 'root' ? '' : `#${s}`)} />
+        <SectionView section={section} />
 
-        <section id="projects">
-          <h2>projects/</h2>
-          {/* Load projects */}
-          <div className="projects">
-            {loading && <div className="card proj"><p>Loading...</p></div>}
-            {error && <div className="card proj"><p>Failed to load projects: {error}</p></div>}
-            {projects && projects.map((project) => (
-              <ProjectCard key={project.title} {...project} />
-            ))}
-          </div>
-        </section>
+        <TerminalOverlay open={terminalOpen} onOpen={() => setTerminalOpen(true)} onClose={() => setTerminalOpen(false)} />
       </div>
-
-      {/*... terminal ...*/}
     </>
   )
+
+  // const { data: projects, error, loading } = useProjects();
+
+  // return (
+  //   <>
+  //     <div className="wrap">
+  //       {/* ... header, directorygrid, etc. ... */}
+
+  //       <section id="projects">
+  //         <h2>projects/</h2>
+  //         {/* Load projects */}
+  //         <div className="projects">
+  //           {loading && <div className="card proj"><p>Loading...</p></div>}
+  //           {error && <div className="card proj"><p>Failed to load projects: {error}</p></div>}
+  //           {projects && projects.map((project) => (
+  //             <ProjectCard key={project.title} {...project} />
+  //           ))}
+  //         </div>
+  //       </section>
+  //     </div>
+
+  //     {/*... terminal ...*/}
+  //   </>
+  // )
 }
