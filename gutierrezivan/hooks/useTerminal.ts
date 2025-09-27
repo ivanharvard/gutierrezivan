@@ -249,9 +249,9 @@ export function useTerminal(ctx: TerminalCtx) {
         "see-code": () => {
             print("Opening source code repository...");
             if (ctx.openUrl) {
-                ctx.openUrl("https://github.com/gutierrezivan/gutierrezivan");
+                ctx.openUrl("https://github.com/ivanharvard/gutierrezivan");
             } else {
-                window.open("https://github.com/gutierrezivan/gutierrezivan", "_blank");
+                window.open("https://github.com/ivanharvard/gutierrezivan", "_blank");
             }
         },
 

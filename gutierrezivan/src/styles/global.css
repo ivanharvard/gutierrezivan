@@ -266,3 +266,13 @@ code {
   border-radius: 3px;
   font-size: 0.9em;
 }
+
+.card-img {
+  width: 70%;
+  border-radius: 12px;
+  transition: transform .2s ease;
+}
+
+.card-img:hover {
+  transform: scale(1.05);
+}

@@ -13,11 +13,11 @@ export default function SectionView(
         const eoySpring2027 = new Date("2027-05-31");
 
         if (today < eoySpring2026) {
-            return "junior at harvard studying computer science";
+            return "junior at Harvard studying Computer Science";
         } else if (today < eoySpring2027) {
-            return "senior at harvard studying computer science";
+            return "senior at Harvard studying Computer Science";
         } else {
-            return "recent harvard graduate with a B.A. in computer science";
+            return "recent Harvard graduate with a B.A. in Computer Science";
         }
     };
 
@@ -25,7 +25,7 @@ export default function SectionView(
         return (
             <section aria-label="Intro">
                 <div className="card">
-                    <p>hi there! press <code>`</code> to open the terminal.</p>
+                    <p>Hi there! Press <code>`</code> to open the terminal.</p>
                 </div>
             </section>
         );
@@ -35,7 +35,21 @@ export default function SectionView(
             <section id="about">
                 <h2>about/</h2>
                 <div className="card">
-                    <p id="aboutText">hey! my name is ivan. i'm a <span id="harvardRole">{getHarvardRole()}</span>.</p>
+                    <p id="aboutText">
+                        Hey! My name is Ivan. I'm a <span id="harvardRole">{getHarvardRole()}</span>.
+                        <br /><br />
+                        I grew up in Destin, FL, a small beach town known for its white sand beaches. I currently live in Cambridge, MA while attending Harvard University. I think the field of Computer Science can feel particularly daunting to those who are just starting out, so I feel uniquely inclined to make Computer Science as accessible as possible, regardless of background. I strive to participate in efforts that promote CS education for all.
+                        <br /><br />
+                        I also have a great interest in privacy and security, and I enjoy investigating technologies that are designed to protect (and steal!) user data. I've met some of the most fascinating professors and researchers through my interest in this field, and I look forward to continuing to learn more about it in the future. Hopefully, I'll get to build more projects that prioritize user privacy while still delivering great user experiences.
+                        <br /><br />
+                        In my free time, I enjoy going to the movie theatre and playing the daily Wordle!
+                        <br /><br />
+                        Feel free to <a href="#contact">reach out</a> if you'd like to connect.
+                    </p>
+                </div>
+                <br />
+                <div className="card">
+                    <img src="/hhchina.jpg" className="card-img"/>
                 </div>
             </section>
         );
