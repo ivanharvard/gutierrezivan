@@ -1,0 +1,37 @@
+[
+    {
+        "type": "job",
+        "organization": "CS50x",
+        "role": "Software Engineering Intern",
+        "date": "Jun. 2025 - Aug. 2025",
+        "location": "Cambridge, MA",
+        "blurb": "Maintained and extended CS50's open-source libraries (check50, submit50, compare50, render50, lib50), used by over 5 million students and educators.",
+        "tags": ["Python", "Flask", "SQL"]
+    },
+    {
+        "type": "job",
+        "organization": "CS50 (Introduction to Computer Science), CS50 (and AI) for Lawyers",
+        "role": "Teaching Fellow",
+        "date": "Fall 2024, Jan 2025, Fall 2025",
+        "location": "Cambridge, MA",
+        "tags": ["C", "Python", "SQL", "HTML/CSS", "JavaScript", "Flask"]
+    },
+    {
+        "type": "extracurricular",
+        "organization": "HackHarvard Undergraduate Hackathon",
+        "role": "Director",
+        "date": "Mar. 2024 - Present",
+        "location": "Cambridge, MA",
+        "url": "https://hackharvard.io",
+        "tags": ["Svelte", "Firebase", "TypeScript"]
+    },
+    {
+        "type": "extracurricular",
+        "organization": "Datamatch",
+        "role": "Algo Team Lead",
+        "date": "Nov. 2023 - Present",
+        "location": "Cambridge, MA",
+        "url": "https://datamatch.io",
+        "tags": ["C++", "Python"]
+    }
+]

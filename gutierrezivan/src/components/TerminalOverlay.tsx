@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTerminal } from "../../hooks/useTerminal";
 import { useProjects } from "../data/projects";
+import { setTheme } from "../theme";
 
 type Props = {
   open: boolean;
@@ -35,15 +36,39 @@ export default function TerminalOverlay({
   const { lines, cmd, setCmd, bodyRef, executeCommand, prompt, onKeyDown } = useTerminal({
     who: { user, host },
     navigate: (section) => (location.hash = `#${section}`),
-    setTheme: (mode) => (window as any).setTheme?.(mode),
+    setTheme: (mode) => setTheme(mode),
     downloadResume: () => (document.getElementById("resumeLink") as HTMLAnchorElement | null)?.click(),
-    openTerminal: onOpen,
+    openTerminal: () => {
+      if (!open) {
+        onOpen();
+      }
+      // Always attempt to focus, regardless of current open state
+      setTimeout(() => {
+        inputRef.current?.focus();
+        // Also scroll to bottom when focusing
+        const el = bodyRef.current;
+        if (el) {
+          el.scrollTop = el.scrollHeight;
+        }
+      }, FOCUS_DELAY + 100); // Extra delay for navigation and DOM updates
+    },
     projects: useProjects().data || [],
   });
 
   const clamp = (h: number) => Math.max(MIN_H, Math.min(h, Math.floor(window.innerHeight * MAX_WINDOW_HEIGHT)));
 
-  useEffect(() => { if (open) setTimeout(() => inputRef.current?.focus(), FOCUS_DELAY); }, [open]);
+  useEffect(() => { 
+    if (open) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+        // Also scroll to bottom when terminal opens
+        const el = bodyRef.current;
+        if (el) {
+          el.scrollTop = el.scrollHeight;
+        }
+      }, FOCUS_DELAY);
+    }
+  }, [open]);
 
   useEffect(() => {
     const t = setInterval(() => {

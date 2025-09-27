@@ -11,5 +11,11 @@
         "liveUrl": "https://gutierrezivan.com",
         "codeUrl": "https://github.com/ivanharvard/gutierrezivan",
         "tags": ["TypeScript", "React", "Vite", "HTML/CSS"]
+    },
+    {
+        "title": "SQLito",
+        "blurb": "A SQL-like querying framework written entirely in Python using an OOP-based architecture.",
+        "codeUrl": "https://github.com/ivanharvard/sqlito",
+        "tags": ["Python", "SQL"]
     }
 ]

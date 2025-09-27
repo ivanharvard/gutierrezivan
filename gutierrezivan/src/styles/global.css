@@ -65,6 +65,8 @@ body {
   box-shadow: 0 -10px 40px rgba(0,0,0,.35);
   transition: bottom .25s ease;
   z-index: 50;
+  display: flex;
+  flex-direction: column;
 }
 .terminal.open { bottom: 0; }
 
@@ -91,15 +93,32 @@ body {
 .term-spacer { width:64px; }
 
 /* body + monospace */
-.term-body { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:var(--mono-bg); color:var(--mono-text); overflow:auto; padding:14px; font-size: 13px;}
+.term-body { 
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; 
+  background:var(--mono-bg); 
+  color:var(--mono-text); 
+  overflow-y: auto; 
+  overflow-x: hidden;
+  padding:14px; 
+  font-size: 13px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Important for flex scrolling */
+}
 .term-body .line { margin:0; white-space: pre-wrap; }
 
 /* inline input line (no separator) */
 .input-line {
-  display:flex; align-items:center; gap:10px;
+  display:flex; 
+  align-items:center; 
+  gap:10px;
   /* same look as body (no divider line) */
   padding: 6px 0 0 0;
-  font: inherit; color: inherit;
+  font: inherit; 
+  color: inherit;
+  flex-shrink: 0; /* Prevent input from shrinking */
+  margin-top: auto; /* Push to bottom of flex container */
 }
 
 /* subtle “terminal-ish” input box but inline */
@@ -213,3 +232,10 @@ h2 { font-size:20px; margin:0 0 12px 0; }
 footer { margin-top:48px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
 
 
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
