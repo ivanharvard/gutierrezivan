@@ -34,9 +34,16 @@ export default function App() {
 
   // keyboard shortcuts definition
   const onKey = useCallback((e: KeyboardEvent) => {
-    if (e.key === "`" && !terminalOpen) setTerminalOpen(v => !v);
+    // Check if terminal input is focused
+    const activeElement = document.activeElement;
+    const isTerminalInputFocused = activeElement && 
+      activeElement.classList.contains('terminal-input');
+    
+    if (e.key === "`" && !terminalOpen && !isTerminalInputFocused) {
+      setTerminalOpen(true);
+    }
     if (e.key === "Escape") setTerminalOpen(false);
-  }, []);
+  }, [terminalOpen]);
 
   useEffect(() => {
     window.addEventListener("keydown", onKey);

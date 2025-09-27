@@ -67,6 +67,9 @@ export default function TerminalOverlay({
           el.scrollTop = el.scrollHeight;
         }
       }, FOCUS_DELAY);
+    } else {
+      // Unfocus the input when terminal closes
+      inputRef.current?.blur();
     }
   }, [open]);
 
@@ -210,6 +213,7 @@ export default function TerminalOverlay({
           <span className="prompt">{prompt()}</span>
           <input
             ref={inputRef}
+            className="terminal-input"
             value={cmd}
             onChange={(e) => setCmd(e.target.value)}
             onKeyDown={onKeyDown}

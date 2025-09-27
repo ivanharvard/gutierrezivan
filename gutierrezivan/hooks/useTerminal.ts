@@ -191,7 +191,7 @@ export function useTerminal(ctx: TerminalCtx) {
 
     const registry = useMemo(() => ({
         help: () =>
-        print("Commands: help, ls [path], pwd, cd [about|projects|contact|~], cat <file>, theme [light|dark|auto], download, see-code, clear"),
+        print("Commands: help, ls [path], pwd, cd [path], cat <file>, theme [light|dark|auto], rm [-rf] [path], download, see-code, clear"),
 
         clear: () => clear(),
 
@@ -254,6 +254,176 @@ export function useTerminal(ctx: TerminalCtx) {
                 window.open("https://github.com/gutierrezivan/gutierrezivan", "_blank");
             }
         },
+
+        rm : (arg) => {
+            const showPrank404 = () => {
+                // Create a fake filesystem to "delete"
+                const fakeFiles = [
+                    "/bin/bash", "/bin/zsh", "/usr/bin/node", "/usr/bin/npm",
+                    "/etc/passwd", "/etc/hosts", "/home/user/documents",
+                    "/home/user/photos", "/var/log/system.log", "/tmp/cache",
+                    "/Applications/Chrome.app", "/Applications/VSCode.app",
+                    "/System/Library", "/Library/Preferences", "/usr/local/bin",
+                ];
+
+                // Store removed elements for restoration
+                const removedElements: Array<{element: HTMLElement, parent: Node, nextSibling: Node | null}> = [];
+
+                const removeElement = (element: HTMLElement) => {
+                    if (element && element.parentNode) {
+                        removedElements.push({
+                            element: element,
+                            parent: element.parentNode,
+                            nextSibling: element.nextSibling
+                        });
+                        element.parentNode.removeChild(element);
+                    }
+                };
+
+                let index = 0;
+                const deleteInterval = setInterval(() => {
+                    if (index < fakeFiles.length) {
+                        print(`rm: removing '${fakeFiles[index]}'`);
+                        
+                        // Get current visible elements to remove (refresh each time since DOM changes)
+                        const currentElements = [
+                            document.querySelector('header'),
+                            document.querySelector('.grid'),
+                            ...Array.from(document.querySelectorAll('.card')),
+                            ...Array.from(document.querySelectorAll('.dir')),
+                            ...Array.from(document.querySelectorAll('section:not(.terminal-section)')),
+                            document.querySelector('footer'),
+                            ...Array.from(document.querySelectorAll('h2')),
+                            ...Array.from(document.querySelectorAll('p')),
+                        ].filter(Boolean) as HTMLElement[];
+
+                        // Remove the first available element
+                        if (currentElements.length > 0) {
+                            removeElement(currentElements[0]);
+                        }
+                        
+                        index++;
+                    } else {
+                        clearInterval(deleteInterval);
+                        
+                        // Show final "critical system files" being deleted
+                        setTimeout(() => {
+                            print("rm: removing '/System/Library/CoreServices'");
+                            print("rm: removing '/System/Library/Kernels'");
+                            print("rm: removing '/usr/bin/sudo'");
+                            
+                            // Remove any remaining visible elements
+                            const remainingElements = Array.from(document.querySelectorAll('body > *')).filter(el => 
+                                !el.classList.contains('terminal') && 
+                                (el as HTMLElement).style.display !== 'none' &&
+                                el.tagName !== 'SCRIPT'
+                            ) as HTMLElement[];
+                            
+                            remainingElements.forEach((el) => {
+                                removeElement(el);
+                            });
+                            
+                            // Show the 404 screen after all deletions
+                            setTimeout(() => {
+                                const overlay = document.createElement("div");
+                                Object.assign(overlay.style, {
+                                    position: "fixed", 
+                                    inset: "0",
+                                    background: "var(--bg)",
+                                    display: "grid",
+                                    placeItems: "center",
+                                    zIndex: "999999",
+                                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                                    fontSize: "clamp(18px, 3vw, 28px)",
+                                    textAlign: "center",
+                                    color: "var(--text)",
+                                } as CSSStyleDeclaration);
+                                overlay.innerHTML = 
+                                    `<div>
+                                        <div style="opacity:.85">404</div>
+                                        <div style="margin-top:8px;font-size:.8em;opacity:.6">Page not found</div>
+                                    </div>`;
+                                document.body.appendChild(overlay);
+
+                                // dramatic pause, then "restore" the filesystem
+                                setTimeout(() => {
+                                    overlay.innerHTML = 
+                                        `<div>
+                                            <div>just kidding!</div>
+                                            <div style="margin-top:8px;font-size:.8em;opacity:.6">restoring filesystem…</div>
+                                        </div>`;
+                                    
+                                    // Restore all removed elements
+                                    removedElements.reverse().forEach(({element, parent, nextSibling}) => {
+                                        if (nextSibling) {
+                                            parent.insertBefore(element, nextSibling);
+                                        } else {
+                                            parent.appendChild(element);
+                                        }
+                                    });
+                                }, 7000);
+
+                                setTimeout(() => {
+                                    clear();
+                                    document.body.removeChild(overlay);
+                                    print("rm: don't be silly, your files are safe :)");
+                                }, 9000);
+                            }, 800);
+                        }, 300);
+                    }
+                }, 100); // Show each deletion every 100ms
+            };
+
+            const isRootish = (s: string) => {
+                // what we consider a "root nuke"
+                // - `/`, `/*`, `/ --no-preserve-root`, variants with `-rf`
+                // - `~` when it maps to HOME, and absolute `/` from anywhere
+                if (!s) return false;
+                const raw = s.trim();
+                // tokenize to catch flags and target
+                const parts = raw.match(/(?:[^\s"]+|"[^"]*")+/g) || [];
+                const flags = parts.filter(p => p.startsWith("-")).join(" ");
+                const target = parts.filter(p => !p.startsWith("-")).join(" ").trim() || "";
+                const looksLikeRoot =
+                    target === "/" || target === "/*" ||
+                    target === "~" || target === "~/" 
+                    || target === `${SLASH}`
+                    || target.replace(/\/+$/,'') === ""; // defensive
+                const explicitNoPreserve = /\B--no-preserve-root\b/.test(flags);
+                return looksLikeRoot && explicitNoPreserve;
+            }
+
+            const usage = () => print("usage: rm [-rf] <file|dir>");
+            if (!arg || !arg.trim()) { return usage(); }
+
+            // prank if they try to nuke root
+            if (isRootish(arg)) {
+                clear();
+                showPrank404();
+                return;
+            }
+
+            // everything else is read-only
+            const parts = arg.match(/(?:[^\s"]+|"[^"]*")+/g) || [];
+            const flags = parts.filter((p: string) => p.startsWith("-")).join(" ");
+            const targetRaw = parts.filter((p: string) => !p.startsWith("-"))?.pop();
+            if (!targetRaw) { return usage(); }
+
+            const has = (ch: string) => new RegExp(`(^|-)${ch}`).test(flags);
+            const abs = joinPath(cwd, targetRaw.replace(/^["']|["']$/g, ""));
+            const node = resolve(abs);
+
+            if (!node) { 
+                if (has("f")) return; // silent if -f
+                return print(`rm: cannot remove '${toTilde(targetRaw)}': No such file or directory`);
+            }
+
+            if (isDir(node) && !has("r")) {
+                return print(`rm: cannot remove '${toTilde(targetRaw)}': Is a directory`);
+            }
+
+            return print(`rm: cannot remove '${toTilde(targetRaw)}': Read-only file system`);
+        }
     }), [cwd, print, clear, listDir, chdir, resolve, ctx]);    
     
     const commandNames = () => Object.keys(registry);
