@@ -4,7 +4,7 @@ import type { Project } from "../src/data/projects";
 export type TerminalCtx = {
     who?: { user: string; host: string };
     navigate: (section: "about" | "projects" | "contact") => void;
-    setTheme: (mode: "light" | "dark" | "auto" | "toggle") => void;
+    setTheme: (mode: "light" | "dark" | "pink" | "dark-purple" | "auto" | "toggle") => void;
     downloadResume: () => void;
     openTerminal?: () => void;
     openUrl?: (href: string) => void;
@@ -191,7 +191,7 @@ export function useTerminal(ctx: TerminalCtx) {
 
     const registry = useMemo(() => ({
         help: () =>
-        print("Commands: help, ls [path], pwd, cd [path], cat <file>, theme [light|dark|auto], rm [-rf] [path], download, see-code, clear"),
+        print("Commands: help, ls [path], pwd, cd [path], cat <file>, theme [light|dark|pink|dark-purple|auto], rm [-rf] [path], download, see-code, clear"),
 
         clear: () => clear(),
 
@@ -237,8 +237,8 @@ export function useTerminal(ctx: TerminalCtx) {
         },
 
         theme: (arg) => {
-            if (arg === "light" || arg === "dark" || arg === "auto") ctx.setTheme(arg);
-            else print("usage: theme [light|dark|auto]");
+            if (arg === "light" || arg === "dark" || arg === "pink" || arg === "dark-purple" || arg === "auto") ctx.setTheme(arg);
+            else print("usage: theme [light|dark|pink|dark-purple|auto]");
         },
 
         download: () => {
