@@ -2,9 +2,24 @@ import { useProjects } from '../data/projects';
 import ProjectCard from './ProjectCard';
 
 export default function SectionView(
-    { section }: { section: 'root' | 'about' | 'projects' | 'contact' }
+    { section }: { section: 'root' | 'about' | 'projects' | 'contact' | 'experience' }
 ) {
     const { data: projects, error, loading } = useProjects();
+    
+    // Calculate Harvard role based on current date
+    const getHarvardRole = () => {
+        const today = new Date();
+        const eoySpring2026 = new Date("2026-05-31");
+        const eoySpring2027 = new Date("2027-05-31");
+
+        if (today < eoySpring2026) {
+            return "junior at harvard studying computer science";
+        } else if (today < eoySpring2027) {
+            return "senior at harvard studying computer science";
+        } else {
+            return "recent harvard graduate with a B.A. in computer science";
+        }
+    };
 
     if (section === 'root') {
         return (
@@ -20,7 +35,7 @@ export default function SectionView(
             <section id="about">
                 <h2>about/</h2>
                 <div className="card">
-                    <p id="aboutText">hey! my name is ivan. i'm studying computer science and applied math at harvard. in the summer of 2025, i worked as a software engineer intern at <a href="https://cs50.harvard.edu">CS50</a>, where i contributed to improving CS50's tools and curriculum, serving over 5 million student. </p>
+                    <p id="aboutText">hey! my name is ivan. i'm a <span id="harvardRole">{getHarvardRole()}</span>.</p>
                 </div>
             </section>
         );
@@ -29,13 +44,16 @@ export default function SectionView(
         return (
             <section id="experience">
                 <h2>experience/</h2>
-                <div className="card">
-                    <p id="experienceText">interned at cs50</p>
+                <div className="experience">
+                    {loading && <div className="card"><p>Loading...</p></div>}
+                    {error && <div className="card"><p>Failed to load experience: {error}</p></div>}
+                    {experience && experience.map((exp) => (
+                        <ProjectCard key={exp.title} {...exp} />
+                    ))}
                 </div>
             </section>
         );
     }
-
     if (section === 'projects') {
         return (
             <section id="projects">

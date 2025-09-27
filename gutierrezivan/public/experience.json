@@ -23,7 +23,7 @@
         "date": "Mar. 2024 - Present",
         "location": "Cambridge, MA",
         "url": "https://hackharvard.io",
-        "tags": ["Svelte", "Firebase", "TypeScript"]
+        "tags": ["Leadership", "Event Planning", "Svelte", "TypeScript", "Firebase", "Project Management", "Community Building"]
     },
     {
         "type": "extracurricular",
@@ -32,6 +32,6 @@
         "date": "Nov. 2023 - Present",
         "location": "Cambridge, MA",
         "url": "https://datamatch.io",
-        "tags": ["C++", "Python"]
+        "tags": ["Leadership", "Algorithm Design", "Data Structures", "C++", "Python", "Machine Learning", "Team Management"]
     }
 ]
