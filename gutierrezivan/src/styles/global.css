@@ -29,6 +29,32 @@ html[data-theme="dark"] {
   --mono-text: #e6e6e6;
 }
 
+html[data-theme="pink"] {
+  --bg:      #fff0f6;
+  --text:    #3b003b;
+  --muted:   #7a2a7a;
+
+  --card:    #ffe6f0;
+  --ring:    #ffb3d9;
+  --accent:  #ff66b2;
+
+  --mono-bg:   #1a001a;
+  --mono-text: #ffccf2;
+}
+
+html[data-theme="dark-purple"] {
+  --bg:      #0f0b1f;
+  --text:    #e8e4f0;
+  --muted:   #9b8fb5;
+
+  --card:    #1a1528;
+  --ring:    #352a47;
+  --accent:  #8b5cf6;
+
+  --mono-bg:   #0a0614;
+  --mono-text: #d4c4f0;
+}
+
 /* base usage */
 html, body { height: 100%; }
 body {
