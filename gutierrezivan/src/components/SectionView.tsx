@@ -10,7 +10,7 @@ export default function SectionView(
         return (
             <section aria-label="Intro">
                 <div className="card">
-                    <p>Yapyapyap.</p>
+                    <p>hi there! press <code>`</code> to open the terminal.</p>
                 </div>
             </section>
         );
@@ -20,11 +20,22 @@ export default function SectionView(
             <section id="about">
                 <h2>about/</h2>
                 <div className="card">
-                    <p id="aboutText">bio and stuff</p>
+                    <p id="aboutText">hey! my name is ivan. i'm studying computer science and applied math at harvard. in the summer of 2025, i worked as a software engineer intern at <a href="https://cs50.harvard.edu">CS50</a>, where i contributed to improving CS50's tools and curriculum, serving over 5 million student. </p>
                 </div>
             </section>
         );
     }
+    if (section === 'experience') {
+        return (
+            <section id="experience">
+                <h2>experience/</h2>
+                <div className="card">
+                    <p id="experienceText">interned at cs50</p>
+                </div>
+            </section>
+        );
+    }
+
     if (section === 'projects') {
         return (
             <section id="projects">

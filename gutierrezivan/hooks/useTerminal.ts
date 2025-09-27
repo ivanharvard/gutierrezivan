@@ -75,11 +75,14 @@ export function useTerminal(ctx: TerminalCtx) {
     const bodyRef = useRef<HTMLDivElement | null>(null);
 
     const print = useCallback((s: string) => {
-            setLines((prev) => [...prev, s]);
-            requestAnimationFrame(() => {
+        setLines((prev) => [...prev, s]);
+        // Use setTimeout instead of requestAnimationFrame for better reliability
+        setTimeout(() => {
             const el = bodyRef.current;
-            if (el) el.scrollTop = el.scrollHeight;
-        });
+            if (el) {
+                el.scrollTop = el.scrollHeight;
+            }
+        }, 0);
     }, []);
 
     const clear = useCallback(() => setLines([]), []);
@@ -149,21 +152,32 @@ export function useTerminal(ctx: TerminalCtx) {
         if (!node || !isDir(node)) return false;
         setCwd(targetAbs);
         
-        // Temporarily commenting out navigation side effects
-        /*
-        // flip content panel if entering a known section under ~
+        // Navigate to corresponding page sections based on directory
         const tilde = toTilde(targetAbs);
-        if (tilde === "~" || tilde === "~/" ) return true;
+        
+        // If we're at home (~) or root (/), go to root page
+        if (tilde === "~" || targetAbs === "/" || tilde === "~/") {
+            // Clear hash to go to root/home page
+            if (window.location.hash) {
+                window.location.hash = "";
+            }
+            return true;
+        }
+        
+        // If we're in a subdirectory of home, navigate to that section
         if (tilde.startsWith("~/")) {
             const seg = tilde.slice(2).split(SLASH)[0]; // about | projects | contact
             if (seg === "about" || seg === "projects" || seg === "contact") {
                 ctx.navigate(seg as "about" | "projects" | "contact");
-                ctx.openTerminal?.();
+                // Ensure terminal stays open and refocused after navigation
+                setTimeout(() => {
+                    ctx.openTerminal?.();
+                }, 100); // Delay to let the navigation and DOM updates complete
             }
         }
-        */
+        
         return true;
-    }, [cwd, resolve]);
+    }, [cwd, resolve, ctx]);
 
     // read file content at path
     const readFile = useCallback((path: string): string | null => {
@@ -177,7 +191,7 @@ export function useTerminal(ctx: TerminalCtx) {
 
     const registry = useMemo(() => ({
         help: () =>
-        print("Commands: help, ls [path], pwd, cd [about|projects|contact|~], cat <file> theme [light|dark|auto], download, see-code, clear"),
+        print("Commands: help, ls [path], pwd, cd [about|projects|contact|~], cat <file>, theme [light|dark|auto], download, see-code, clear"),
 
         clear: () => clear(),
 
@@ -194,7 +208,14 @@ export function useTerminal(ctx: TerminalCtx) {
         },
 
         cd: (arg) => {
-            if (!arg) { setCwd(HOME); return; }
+            if (!arg) { 
+                setCwd(HOME); 
+                // Navigate to root page when going to home
+                if (window.location.hash) {
+                    window.location.hash = "";
+                }
+                return; 
+            }
             const ok = chdir(arg);
             if (!ok) print(`cd: ${arg}: No such file or directory`);
         },
@@ -251,7 +272,15 @@ export function useTerminal(ctx: TerminalCtx) {
         const fn = (registry as Record<string, CommandHandler>)[c];
         if (fn) fn(arg);
         else print(`-zsh: ${c}: command not found`);
-    }, [print, prompt, registry]);
+        
+        // Ensure scroll to bottom after command execution
+        setTimeout(() => {
+            const el = bodyRef.current;
+            if (el) {
+                el.scrollTop = el.scrollHeight;
+            }
+        }, 10);
+    }, [print, prompt, registry, bodyRef]);
 
     // key handling for input (history, tab, Ctrl+L)
     const onKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
