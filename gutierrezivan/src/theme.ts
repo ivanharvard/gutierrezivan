@@ -1,4 +1,6 @@
-type Mode = 'light' | 'dark' | 'auto' | 'toggle';
+import { type ThemeMode, type ThemeName, THEME_CONFIG, getThemeNames } from './themeConfig';
+
+type Mode = ThemeMode;
 
 const KEY = "theme";
 
@@ -14,13 +16,13 @@ export function getTheme(): Exclude<Mode, 'toggle'> {
 }
 
 /// setTheme(mode)
-///     Sets the theme to 'light', 'dark', 'auto', or toggles between light and dark.
+///     Sets the theme to any available theme, 'auto', or toggles between light and dark.
 
 export function setTheme(mode: Mode) {
     const root = document.documentElement;
 
     if (mode === "toggle") {
-        const current = root.getAttribute("data-theme") as "light" | "dark" | null;
+        const current = root.getAttribute("data-theme") as ThemeName | null;
         mode = current === "light" ? "dark" : "light";
     }
 
@@ -32,8 +34,25 @@ export function setTheme(mode: Mode) {
         return;
     }
 
-    root.setAttribute("data-theme", mode); // light or dark
-    localStorage.setItem(KEY, mode);
+    // Validate theme name
+    if (getThemeNames().includes(mode as ThemeName)) {
+        root.setAttribute("data-theme", mode);
+        localStorage.setItem(KEY, mode);
+        
+        // Apply CSS custom properties dynamically
+        const themeConfig = THEME_CONFIG[mode as ThemeName];
+        if (themeConfig) {
+            const { colors } = themeConfig;
+            root.style.setProperty('--bg', colors.bg);
+            root.style.setProperty('--text', colors.text);
+            root.style.setProperty('--muted', colors.muted);
+            root.style.setProperty('--card', colors.card);
+            root.style.setProperty('--ring', colors.ring);
+            root.style.setProperty('--accent', colors.accent);
+            root.style.setProperty('--mono-bg', colors.monoBg);
+            root.style.setProperty('--mono-text', colors.monoText);
+        }
+    }
 }
 
 /// applyAuto()
@@ -41,5 +60,5 @@ export function setTheme(mode: Mode) {
 
 export function applyAuto() {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    document.documentElement.setAttribute("data-theme", prefersDark ? "dark" : "light");
+    setTheme(prefersDark ? "dark" : "light");
 }

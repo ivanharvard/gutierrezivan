@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useCallback, useRef, useState } from "react";
 import type { Project } from "../src/data/projects";
+import type { ThemeMode } from "../src/themeConfig";
+import { getThemeListWithAuto, getThemeNames } from "../src/themeConfig";
 
 export type TerminalCtx = {
     who?: { user: string; host: string };
     navigate: (section: "about" | "projects" | "contact") => void;
-    setTheme: (mode: "light" | "dark" | "pink" | "dark-purple" | "auto" | "toggle") => void;
+    setTheme: (mode: ThemeMode) => void;
     downloadResume: () => void;
     openTerminal?: () => void;
     openUrl?: (href: string) => void;
@@ -191,7 +193,7 @@ export function useTerminal(ctx: TerminalCtx) {
 
     const registry = useMemo(() => ({
         help: () =>
-        print("Commands: help, ls [path], pwd, cd [path], cat <file>, theme [light|dark|pink|dark-purple|auto], rm [-rf] [path], download, see-code, clear"),
+        print(`Commands: help, ls [path], pwd, cd [path], cat <file>, theme [${getThemeListWithAuto()}], rm [-rf] [path], download, see-code, clear`),
 
         clear: () => clear(),
 
@@ -236,9 +238,17 @@ export function useTerminal(ctx: TerminalCtx) {
             node.content.split("\n").forEach(line => print(line));
         },
 
-        theme: (arg) => {
-            if (arg === "light" || arg === "dark" || arg === "pink" || arg === "dark-purple" || arg === "auto") ctx.setTheme(arg);
-            else print("usage: theme [light|dark|pink|dark-purple|auto]");
+        theme: (arg: string) => {
+            if (!arg) {
+                print(`usage: theme [${getThemeListWithAuto()}]`);
+                return;
+            }
+            const validThemes = [...getThemeNames(), 'auto'];
+            if (validThemes.includes(arg as any)) {
+                ctx.setTheme(arg as ThemeMode);
+            } else {
+                print(`usage: theme [${getThemeListWithAuto()}]`);
+            }
         },
 
         download: () => {
@@ -259,11 +269,18 @@ export function useTerminal(ctx: TerminalCtx) {
             const showPrank404 = () => {
                 // Create a fake filesystem to "delete"
                 const fakeFiles = [
-                    "/bin/bash", "/bin/zsh", "/usr/bin/node", "/usr/bin/npm",
-                    "/etc/passwd", "/etc/hosts", "/home/user/documents",
-                    "/home/user/photos", "/var/log/system.log", "/tmp/cache",
-                    "/Applications/Chrome.app", "/Applications/VSCode.app",
-                    "/System/Library", "/Library/Preferences", "/usr/local/bin",
+                    "/bin/bash", "/bin/zsh", "/bin/sh",
+                    "/usr/bin/node", "/usr/bin/npm", "/usr/bin/git", "/usr/bin/python3",
+                    "/etc/passwd", "/etc/hosts", "/etc/sudoers",
+                    "/Users/user/Documents", "/Users/user/Downloads", "/Users/user/Desktop",
+                    "/var/log/system.log", "/var/db", "/tmp/cache",
+                    "/Applications/Safari.app", "/Applications/Chrome.app", "/Applications/VSCode.app",
+                    "/Applications/Xcode.app", "/Applications/Finder.app",
+                    "/System/Library/CoreServices", "/System/Library/Frameworks",
+                    "/Library/Application Support", "/Library/Preferences",
+                    "/usr/local/bin", "/usr/local/homebrew",
+                    "/private/var/vm", "/private/etc/master.passwd",
+                    "/Applications/Terminal.app",
                 ];
 
                 // Store removed elements for restoration
@@ -371,7 +388,7 @@ export function useTerminal(ctx: TerminalCtx) {
                             }, 800);
                         }, 300);
                     }
-                }, 100); // Show each deletion every 100ms
+                }, 50); // Show each deletion every 50ms
             };
 
             const isRootish = (s: string) => {
