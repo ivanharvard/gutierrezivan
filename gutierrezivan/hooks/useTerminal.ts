@@ -458,7 +458,7 @@ export function useTerminal(ctx: TerminalCtx) {
         const arg = rest.join(" ");
         const fn = (registry as Record<string, CommandHandler>)[c];
         if (fn) fn(arg);
-        else print(`-zsh: ${c}: command not found`);
+        else print(`${c}: command not found`);
         
         // Ensure scroll to bottom after command execution
         setTimeout(() => {

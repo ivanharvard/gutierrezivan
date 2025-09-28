@@ -170,9 +170,6 @@ body {
 }
 .input-line input::placeholder { color: rgba(230,230,230,.35); }
 
-/* prompt style */
-.prompt { opacity:.85; }
-
 /* bottom grab */
 .grab { height:14px; display:grid; place-items:center; cursor: ns-resize; }
 .grab .bar { width:48px; height:4px; border-radius:999px; background:#2a2a2a; }
