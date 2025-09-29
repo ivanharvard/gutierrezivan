@@ -2,6 +2,7 @@
     {
         "title": "NewsVibe",
         "blurb": "A web app that uses machine learning to estimate the sentiment of news organizations on a user-inputted topic.",
+        "liveUrl": "https://drive.google.com/file/d/1EELO6WAPl9UNP_TBVcfwPnZEczUHEeZz/view?usp=sharing",
         "codeUrl": "https://github.com/ivanharvard/newsvibe",
         "tags": ["Python", "Flask", "HTML/CSS", "JavaScript", "Machine Learning"]
     },
