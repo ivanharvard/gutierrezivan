@@ -67,12 +67,12 @@ export function useTerminal(ctx: TerminalCtx) {
     const user = ctx.who?.user ?? "guest";
     const host = ctx.who?.host ?? "localhost";
 
-    const [lines, setLines]     = useState<string[]>(["Type 'help' to get started."]);
-    const [cmd, setCmd]         = useState("");
-    const [history, setHistory] = useState<string[]>([]);
-    const [histIdx, setHistIdx] = useState<number | null>(null);
+    const [lines, setLines]      = useState<string[]>(["Type 'help' to get started."]);
+    const [cmd, setCmd]          = useState("");
+    const [history, setHistory]  = useState<string[]>([]);
+    const [_histIdx, setHistIdx] = useState<number | null>(null);
 
-    const [cwd, setCwd]         = useState<string>(HOME);
+    const [cwd, setCwd]          = useState<string>(HOME);
 
     const bodyRef = useRef<HTMLDivElement | null>(null);
 
@@ -181,14 +181,6 @@ export function useTerminal(ctx: TerminalCtx) {
         return true;
     }, [cwd, resolve, ctx]);
 
-    // read file content at path
-    const readFile = useCallback((path: string): string | null => {
-        const abs = joinPath(cwd, path);
-        const node = resolve(abs);
-        if (node && isFile(node)) return node.content;
-        return null;
-    }, [cwd, resolve]);
-
     // ========== CMD REGISTRY =============
 
     const registry = useMemo(() => ({
@@ -199,7 +191,7 @@ export function useTerminal(ctx: TerminalCtx) {
 
         pwd: () => print(toTilde(cwd)),
 
-        ls: (arg) => {
+        ls: (arg: string | undefined) => {
             const target = arg ? joinPath(cwd, arg) : cwd;
             const items = listDir(target);
             if (!items) { 
@@ -209,7 +201,7 @@ export function useTerminal(ctx: TerminalCtx) {
             print(items.join("  "));
         },
 
-        cd: (arg) => {
+        cd: (arg: string | undefined) => {
             if (!arg) { 
                 setCwd(HOME); 
                 // Navigate to root page when going to home
@@ -222,7 +214,7 @@ export function useTerminal(ctx: TerminalCtx) {
             if (!ok) print(`cd: ${arg}: No such file or directory`);
         },
 
-        cat: (arg) => {
+        cat: (arg: string | undefined) => {
             if (!arg) { print("usage: cat <file>"); return; }
             
             let abs = joinPath(cwd, arg);
@@ -238,7 +230,7 @@ export function useTerminal(ctx: TerminalCtx) {
             node.content.split("\n").forEach(line => print(line));
         },
 
-        theme: (arg: string) => {
+        theme: (arg: string | undefined) => {
             if (!arg) {
                 print(`usage: theme [${getThemeListWithAuto()}]`);
                 return;
@@ -265,7 +257,7 @@ export function useTerminal(ctx: TerminalCtx) {
             }
         },
 
-        rm : (arg) => {
+        rm : (arg: string | undefined) => {
             const showPrank404 = () => {
                 // Create a fake filesystem to "delete"
                 const fakeFiles = [

@@ -68,20 +68,20 @@ export default function SectionView(
             </section>
         );
     }
-    if (section === 'experience') {
-        return (
-            <section id="experience">
-                <h2>experience/</h2>
-                <div className="experience">
-                    {loading && <div className="card"><p>Loading...</p></div>}
-                    {error && <div className="card"><p>Failed to load experience: {error}</p></div>}
-                    {experience && experience.map((exp) => (
-                        <ProjectCard key={exp.title} {...exp} />
-                    ))}
-                </div>
-            </section>
-        );
-    }
+    // if (section === 'experience') {
+    //     return (
+    //         <section id="experience">
+    //             <h2>experience/</h2>
+    //             <div className="experience">
+    //                 {loading && <div className="card"><p>Loading...</p></div>}
+    //                 {error && <div className="card"><p>Failed to load experience: {error}</p></div>}
+    //                 {experience && experience.map((exp) => (
+    //                     <ProjectCard key={exp.title} {...exp} />
+    //                 ))}
+    //             </div>
+    //         </section>
+    //     );
+    // }
     if (section === 'projects') {
         return (
             <section id="projects">
