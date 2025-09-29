@@ -9,28 +9,26 @@ export type Project = {
 };
 
 /// useProjects()
-/// Imports and fetches the projects.json file.
+/// Imports and fetches the projects.json file. Logs errors to console.
 
 export function useProjects() {
-    const [data, setData] = useState<Project[] | null> (null);
-    const [error, setError] = useState<string | null> (null);
-    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState<Project[] | null>(null);
 
     try {
-      const url = new URL("projects.json", document.baseURI).toString();
+        const url = new URL("projects.json", document.baseURI).toString();
 
-      fetch(url, { cache: "no-store" })
-        .then((res) => {
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          return res.json();
-        })
-        .then((json: Project[]) => setData(json))
-        .catch((e) => setError(e instanceof Error ? e.message : String(e)))
-        .finally(() => setLoading(false));
+        fetch(url, { cache: "no-store" })
+            .then((res) => {
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                return res.json();
+            })
+            .then((json: Project[]) => setData(json))
+            .catch((e) => {
+                console.error("Failed to fetch projects:", e);
+            });
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
-      setLoading(false);
+        console.error("Failed to create projects URL:", e);
     }
 
-    return { data, error, loading };
+    return { data };
 }
