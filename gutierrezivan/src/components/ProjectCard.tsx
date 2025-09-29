@@ -1,4 +1,4 @@
-import type { Project } from "../data/projects";
+import type { Project } from "../types/Project";
 
 export default function ProjectCard(
     { title, blurb, liveUrl, codeUrl, tags }: Project
@@ -13,7 +13,7 @@ export default function ProjectCard(
             {tags?.length ? (
                 // If tags exists, render each one
                 <div className="tags">
-                    {tags.map((t) => (
+                    {tags.map((t: string) => (
                         <span key={t} className="tag">{t}</span>
                     ))}
                 </div>

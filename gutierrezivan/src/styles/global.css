@@ -10,6 +10,19 @@
 
   --mono-bg:   #0c0c0c;
   --mono-text: #e6e6e6;
+}*/
+:root {
+  --bg:    #0b0b0b;
+  --text:  #eaeaea;
+  --muted: #9b9b9b;
+
+  --card:  #111111;
+  --ring:  #1f2937;
+  --accent:#7dd3fc;
+  --accent-rgb: 125, 211, 252;
+
+  --mono-bg:   #0c0c0c;
+  --mono-text: #e6e6e6;
 }
 
 /* base usage */
@@ -327,4 +340,123 @@ a {
 a:hover {
   color: var(--muted);
   text-decoration: underline;
+}
+
+/* Experience section styles */
+.experience .card:not(:last-child) {
+  margin-bottom: 24px;
+}
+
+/* Experience timeline styles */
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.exp-type {
+  font-size: 12px;
+  color: var(--muted);
+  background: var(--ring);
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.roles-timeline {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  --dot-size: 8px;
+  --dot-position: calc(var(--dot-size) / 2 + 18px);
+  --line-width: 3px;
+  --line-offset: calc(var(--dot-size) / 2); /* Half the dot size for perfect centering */
+}
+
+.role-entry {
+  padding: 12px 0;
+  padding-left: 16px;
+  position: relative;
+  margin-bottom: 12px; /* Increased spacing between roles */
+}
+
+/* Create the connecting line using ::after pseudo-element for better control */
+.role-entry:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--line-offset) - 6px); /* Center line under dot */
+  top: var(--dot-position); /* Start from center of current dot */
+  bottom: calc(-40px + var(--line-offset)); /* Extend to next entry center */
+  width: var(--line-width);
+  background: var(--ring);
+}
+
+.role-entry:before {
+  content: '';
+  position: absolute;
+  left: calc(-1px - var(--line-offset));
+  top: 18px;
+  width: var(--dot-size);
+  height: var(--dot-size);
+  background: var(--accent);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  z-index: 1; /* Ensure dot appears above line */
+}
+
+/* Active role styling (no endDate) */
+.role-entry.active:before {
+  background: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 10%, transparent);
+    transform: scale(1.1);
+  }
+}
+
+.role-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.role-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text);
+}
+
+.role-duration {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.role-location {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.role-blurb {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--text);
 }

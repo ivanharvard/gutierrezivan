@@ -24,7 +24,7 @@ export default function App() {
   useEffect(() => {
     // on load, set section from hash
     const fromHash = (h: string): Section => 
-      (["root", "about", "projects", "contact"].includes(h) ? (h as Section) : 'root');
+      (["root", "about", "projects", "contact", "experience"].includes(h) ? (h as Section) : 'root');
     const apply = () => setSection(fromHash(location.hash.replace("#", "")));
     apply();
 

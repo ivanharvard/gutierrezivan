@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useCallback, useRef, useState } from "react";
-import type { Project } from "../src/data/projects";
+import type { Project } from "../src/types/Project";
 import type { ThemeMode } from "../src/themeConfig";
 import { getThemeListWithAuto, getThemeNames } from "../src/themeConfig";
 
 export type TerminalCtx = {
     who?: { user: string; host: string };
-    navigate: (section: "about" | "projects" | "contact") => void;
+    navigate: (section: "about" | "projects" | "contact" | "experience") => void;
     setTheme: (mode: ThemeMode) => void;
     downloadResume: () => void;
     openTerminal?: () => void;
@@ -124,6 +124,11 @@ export function useTerminal(ctx: TerminalCtx) {
         }
         home.entries["projects"] = projectsDir;
 
+        // ~/experience
+        home.entries["experience"] = { type: "dir", entries: {
+            "resume.txt": { type: "file", content: "Download resume from contact section" },
+        } };
+
         return root;
     }, [ctx]);
 
@@ -168,9 +173,9 @@ export function useTerminal(ctx: TerminalCtx) {
         
         // If we're in a subdirectory of home, navigate to that section
         if (tilde.startsWith("~/")) {
-            const seg = tilde.slice(2).split(SLASH)[0]; // about | projects | contact
-            if (seg === "about" || seg === "projects" || seg === "contact") {
-                ctx.navigate(seg as "about" | "projects" | "contact");
+            const seg = tilde.slice(2).split(SLASH)[0]; // about | projects | contact | experience
+            if (seg === "about" || seg === "projects" || seg === "contact" || seg === "experience") {
+                ctx.navigate(seg as "about" | "projects" | "contact" | "experience");
                 // Ensure terminal stays open and refocused after navigation
                 setTimeout(() => {
                     ctx.openTerminal?.();

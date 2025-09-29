@@ -1,12 +1,6 @@
 import { useState } from "react";
+import type { Project } from "../types/Project";
 
-export type Project = {
-    title: string;
-    blurb: string;
-    liveUrl?: string;
-    codeUrl?: string;
-    tags?: string[];
-};
 
 /// useProjects()
 /// Imports and fetches the projects.json file. Logs errors to console.
