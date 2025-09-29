@@ -103,9 +103,18 @@ export default function SectionView(
             <section id="contact">
                 <h2>contact/</h2>
                 <div className="card">
-                    <p id="email">igzjobs@gmail.com</p>
-                    <p id="github">https://www.github.com/ivanharvard</p>
-                    <p id="linkedin">https://www.linkedin.com/in/-ivan-gutierrez/</p>
+                    <div className="contact-item">
+                        <span className="icon-img fa-solid fa-envelope"></span>
+                        <a href="mailto:igzjobs@gmail.com" id="email">igzjobs@gmail.com</a>
+                    </div>
+                    <div className="contact-item">
+                        <span className="icon-img fa-brands fa-github"></span>
+                        <a href="https://www.github.com/ivanharvard" id="github" target="_blank" rel="noopener noreferrer">github.com/ivanharvard</a>
+                    </div>
+                    <div className="contact-item">
+                        <span className="icon-img fa-brands fa-linkedin"></span>
+                        <a href="https://www.linkedin.com/in/-ivan-gutierrez/" id="linkedin" target="_blank" rel="noopener noreferrer">linkedin.com/in/-ivan-gutierrez</a>
+                    </div>
                 </div>
             </section>
         );
