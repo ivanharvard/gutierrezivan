@@ -61,6 +61,10 @@ export default function SectionView(
                         <img src="/airport.jpg" className="card-img" width="25%"/>
                         <img src="/mom.jpg" className="card-img" width="60%"/>
                     </div>
+                    <div className="centered-row">
+                        <img src="/nye.jpg" className='card-img' width="53%"/>
+                        <img src="/ciara.jpg" className='card-img' width="30%"/>
+                    </div>
                 </div>
             </section>
         );

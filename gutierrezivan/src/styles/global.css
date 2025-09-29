@@ -283,3 +283,8 @@ code {
 .card-img:hover {
   transform: scale(1.05);
 }
+
+.icon-img {
+  font-size: 32px;
+  color: var(--accent);
+}

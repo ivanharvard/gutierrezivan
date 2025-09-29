@@ -10,8 +10,8 @@ export const THEME_CONFIG = {
       card: '#ffffff',
       ring: '#c9d6ff',
       accent: '#0f62fe',
-      monoBg: '#0c0c0c',
-      monoText: '#e6e6e6',
+      monoBg: '#fafafa',
+      monoText: '#141414ff',
     }
   },
   dark: {
