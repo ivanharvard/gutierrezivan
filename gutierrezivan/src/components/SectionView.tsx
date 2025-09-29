@@ -25,7 +25,7 @@ export default function SectionView(
         return (
             <section aria-label="Intro">
                 <div className="card">
-                    <p>Hi there! Press <code>`</code> to open the terminal.</p>
+                    <p>Hi there! Press <code>`</code> to open the terminal. Alternatively, you can click any of the above buttons.</p>
                 </div>
             </section>
         );
@@ -50,20 +50,19 @@ export default function SectionView(
                 <br />
                 <div className="card-centered">
                     <div className="centered-row">
-                        <img src="/hhchina.jpg" className="card-img" width="60%"/>
-                        <img src="/halloween.jpg" className="card-img" width="30%"/>
+                        <img src="images/hhchina.jpg" className="card-img" width="60%"/>
+                        <img src="images/halloween.jpg" className="card-img" width="30%"/>
                     </div>
                     <div className="centered-row">
-                        <img src="/zoe.jpg" className="card-img" width="44%"/>
-                        <img src="/kenny.jpg" className="card-img" width="50%"/>
+                        <img src="images/zoe.jpg" className="card-img" width="44%"/>
+                        <img src="images/kenny.jpg" className="card-img" width="50%"/>
                     </div>
+                    {/* <div className="centered-row">
+                        <img src="images/airport.jpg" className="card-img" width="25%"/>
+                    </div> */}
                     <div className="centered-row">
-                        <img src="/airport.jpg" className="card-img" width="25%"/>
-                        <img src="/mom.jpg" className="card-img" width="60%"/>
-                    </div>
-                    <div className="centered-row">
-                        <img src="/nye.jpg" className='card-img' width="53%"/>
-                        <img src="/ciara.jpg" className='card-img' width="30%"/>
+                        <img src="images/nye.jpg" className='card-img' width="53%"/>
+                        <img src="images/ciara.jpg" className='card-img' width="30%"/>
                     </div>
                 </div>
             </section>

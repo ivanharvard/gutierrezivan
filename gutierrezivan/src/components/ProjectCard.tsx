@@ -5,8 +5,10 @@ export default function ProjectCard(
 ) {
     return (
         <article className="card proj">
-            <h3>{title}</h3>
-            <p>{blurb}</p>
+            <div className="content">
+                <h3>{title}</h3>
+                <p>{blurb}</p>
+            </div>
             {/* Checks if tags exists */}
             {tags?.length ? (
                 // If tags exists, render each one

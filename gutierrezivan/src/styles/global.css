@@ -1,22 +1,5 @@
 /* global.css */
 :root {
-  /* surface + text */
-  --bg:      #fafafa;
-  --text:    #141414;
-  --muted:   #6b6b6b;
-
-  /* components */
-  --card:    #ffffff;
-  --ring:    #c9d6ff;
-  --accent:  #0f62fe;
-
-  /* terminal-ish */
-  --mono-bg:   #0c0c0c;
-  --mono-text: #e6e6e6;
-}
-
-/* dark theme overrides (when html[data-theme="dark"]) */
-html[data-theme="dark"] {
   --bg:    #0b0b0b;
   --text:  #eaeaea;
   --muted: #9b9b9b;
@@ -247,15 +230,39 @@ body {
 /* Sections & cards */
 section { margin:36px 0; }
 h2 { font-size:20px; margin:0 0 12px 0; }
-.stack { display:flex; flex-wrap:wrap; gap:8px; }
-.tag { border:1px solid var(--ring); padding:6px 10px; border-radius:999px; font-size:13px; background:var(--bg); }
+.stack { display:flex; flex-wrap:wrap; gap:4px; }
+.tags { display:flex; flex-wrap:wrap; gap:4px; }
+.tag { 
+  border:1px solid var(--ring); 
+  padding:6px 10px; 
+  border-radius:999px; 
+  font-size:13px; 
+  background:var(--bg);
+  white-space: nowrap;
+}
 
 /* Projects */
 .projects { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:12px; }
-.proj { display:flex; flex-direction:column; gap:10px; }
-.proj h3 { margin:0; font-size:16px; }
-.proj p { margin:0; color:var(--muted); font-size:14px; }
-.proj .actions { display:flex; gap:8px; }
+.proj { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 6px; 
+  min-height: 200px;
+}
+.proj .content {
+  flex: 1;
+}
+.proj h3 { margin: 0; font-size: 16px; }
+.proj p { margin: 0; color: var(--muted); font-size: 14px; }
+.proj .tags { 
+  margin-top: auto; 
+  margin-bottom: 4px;
+}
+.proj .actions { 
+  display: flex; 
+  gap: 8px; 
+  width: 100%;
+}
 .btn {
   display:inline-flex; align-items:center; gap:6px; border:1px solid var(--ring); background:var(--card);
   padding:8px 10px; border-radius:12px; text-decoration:none; color:inherit;
@@ -310,4 +317,14 @@ code {
 
 .contact-item a:hover {
   color: var(--accent);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--muted);
+  text-decoration: underline;
 }

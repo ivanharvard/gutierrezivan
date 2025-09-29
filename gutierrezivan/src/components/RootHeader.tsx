@@ -3,7 +3,7 @@ export default function RootHeader() {
         <header className="header">
             <div className="brand">
                 <div className="avatar" aria-hidden>
-                    <img src="/avatar.jpg" alt="Ivan Gutierrez" />
+                    <img src="images/avatar.jpg" alt="Ivan Gutierrez" />
                 </div>
                 <div>
                     <div className="title">ivan gutierrez</div>

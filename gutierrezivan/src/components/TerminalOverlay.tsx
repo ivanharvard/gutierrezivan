@@ -10,8 +10,8 @@ type Props = {
   email?: string;
 };
 
-const DEFAULT_WINDOW_HEIGHT = 0.6;
-const MIN_H = 180;
+const DEFAULT_WINDOW_HEIGHT = 0.4;
+const MIN_H = 90;
 const MAX_WINDOW_HEIGHT = 0.92;
 const FOCUS_DELAY = 120;
 const IDLE_MS = 6000;
