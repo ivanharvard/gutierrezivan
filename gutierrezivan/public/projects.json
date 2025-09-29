@@ -17,5 +17,12 @@
         "blurb": "A SQL-like querying framework written entirely in Python using an OOP-based architecture.",
         "codeUrl": "https://github.com/ivanharvard/sqlito",
         "tags": ["Python", "SQL"]
+    },
+    {
+        "title": "DPClustering",
+        "blurb": "A research project that implements a Python package to investigate the application of differential privacy (DP) to common clustering algorithms.",
+        "liveUrl": "/pdf/CS2080_Poster.pdf",
+        "codeUrl": "https://github.com/connorbuchheit/DPClustering",
+        "tags": ["Python", "Machine Learning", "Data Science", "Data Privacy"]
     }
 ]

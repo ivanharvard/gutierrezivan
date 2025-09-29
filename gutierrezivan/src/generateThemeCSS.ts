@@ -36,8 +36,3 @@ export function generateThemeCSS(): string {
 
   return css;
 }
-
-// For build tools or manual copying
-if (typeof window === 'undefined') {
-  console.log(generateThemeCSS());
-}
