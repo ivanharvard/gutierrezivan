@@ -11,7 +11,7 @@ export default function RootHeader() {
                 </div>
             </div>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                <a className="pill" id="resumeLink" href="https://gutierrezivan.netlify.app/resume.pdf" download target="_blank" rel="noopener noreferrer">download resume</a>
+                <a className="pill" id="resumeLink" href="https://gutierrezivan.netlify.app/resume.pdf" download target="_blank" rel="noopener noreferrer"><span className="icon-img fa-solid fa-file-arrow-down"></span></a>
             </div>
         </header>
     )
