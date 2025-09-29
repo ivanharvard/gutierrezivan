@@ -23,14 +23,14 @@ export function generateThemeCSS(): string {
 
     css += `/* ${config.displayName} theme overrides */\n`;
     css += `html[data-theme="${themeName}"] {\n`;
-    css += `  --bg:      ${config.colors.bg};\n`;
-    css += `  --text:    ${config.colors.text};\n`;
-    css += `  --muted:   ${config.colors.muted};\n\n`;
-    css += `  --card:    ${config.colors.card};\n`;
-    css += `  --ring:    ${config.colors.ring};\n`;
-    css += `  --accent:  ${config.colors.accent};\n\n`;
-    css += `  --mono-bg:   ${config.colors.monoBg};\n`;
-    css += `  --mono-text: ${config.colors.monoText};\n`;
+    css += `  --bg:         ${config.colors.bg};\n`;
+    css += `  --text:       ${config.colors.text};\n`;
+    css += `  --muted:      ${config.colors.muted};\n\n`;
+    css += `  --card:       ${config.colors.card};\n`;
+    css += `  --ring:       ${config.colors.ring};\n`;
+    css += `  --accent:     ${config.colors.accent};\n\n`;
+    css += `  --mono-bg:    ${config.colors.monoBg};\n`;
+    css += `  --mono-text:  ${config.colors.monoText};\n`;
     css += `}\n\n`;
   });
 

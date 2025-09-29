@@ -4,6 +4,7 @@ export default function DirectoryGrid({ onSelect }: { onSelect: (s: Section) => 
     const items = [
         { href: '#about',    name: 'about/',    hint: 'who is ivan?',     value: 'about' as Section },
         { href: '#projects', name: 'projects/', hint: 'things ivan made', value: 'projects' as Section },
+        { href: '#experience', name: 'experience/', hint: 'places ivan has been', value: 'experience' as Section },
         { href: '#contact',  name: 'contact/',  hint: 'get in touch',     value: 'contact' as Section },
     ];
 
