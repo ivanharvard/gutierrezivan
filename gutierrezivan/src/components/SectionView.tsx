@@ -4,7 +4,7 @@ import ProjectCard from './ProjectCard';
 export default function SectionView(
     { section }: { section: 'root' | 'about' | 'projects' | 'contact' | 'experience' }
 ) {
-    const { data: projects, error, loading } = useProjects();
+    const { data: projects } = useProjects();
     
     // Calculate Harvard role based on current date
     const getHarvardRole = () => {
@@ -88,8 +88,6 @@ export default function SectionView(
                 <h2>projects/</h2>
                 {/* Load projects */}
                 <div className="projects">
-                    {loading && <div className="card proj"><p>Loading...</p></div>}
-                    {error && <div className="card proj"><p>Failed to load projects: {error}</p></div>}
                     {projects && projects.map((project) => (
                         <ProjectCard key={project.title} {...project} />
                     ))}
