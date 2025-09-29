@@ -1,4 +1,5 @@
-import { Component, ReactNode } from "react";
+import { Component } from "react";
+import type { ReactNode } from "react";
 
 export class DevBoundary extends Component<{ children: ReactNode }, { err?: Error }> {
     state = { err: undefined as Error | undefined };
