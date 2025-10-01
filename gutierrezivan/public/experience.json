@@ -19,21 +19,24 @@
         "organization": "Harvard University",
         "roles": [
             {
-                "title": "Teaching Fellow (CS50) @ Harvard College",
+                "title": "Teaching Fellow [CS50] @ Harvard College",
                 "startDate": "Aug. 2024",
                 "endDate": "Dec. 2024",
-                "location": "Cambridge, MA"
+                "location": "Cambridge, MA",
+                "blurb": "Lectured 15+ students on Computer Science basics and guided them in C, Python, SQL, HTML/CSS/Javascript, and Flask."
             },
             {
-                "title": "Teaching Fellow (CS50 (and AI) for Lawyers) @ Harvard Law School",
+                "title": "Teaching Fellow [CS50 (and AI) for Lawyers] @ Harvard Law School",
                 "startDate": "Jan. 2025",
                 "endDate": "Jan. 2025",
-                "location": "Cambridge, MA"
+                "location": "Cambridge, MA",
+                "blurb": "Assisted in lectures and hosted office hours on the intersection of Computer Science and Law, focusing on Python, SQL, web development, and AI technologies."
             },
             {
-                "title": "Teaching Fellow (CS50) @ Harvard College",
+                "title": "Teaching Fellow [CS50] @ Harvard College",
                 "startDate": "Aug. 2025",
-                "location": "Cambridge, MA"
+                "location": "Cambridge, MA",
+                "blurb": "Lectured 15+ students on Computer Science basics and guided them in C, Python, SQL, HTML/CSS/Javascript, and Flask."
             }
         ],
         "url": "https://en.wikipedia.org/wiki/CS50",

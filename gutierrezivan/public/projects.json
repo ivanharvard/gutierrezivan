@@ -14,16 +14,22 @@
         "tags": ["TypeScript", "React", "Vite", "HTML/CSS"]
     },
     {
+        "title": "DPClustering",
+        "blurb": "A research project that implements a Python package to investigate the application of differential privacy (DP) to common clustering algorithms.",
+        "liveUrl": "/pdf/CS2080_Poster.pdf",
+        "codeUrl": "https://github.com/connorbuchheit/DPClustering",
+        "tags": ["Python", "Machine Learning", "Data Science", "Data Privacy"]
+    },
+    {
         "title": "SQLito",
         "blurb": "A SQL-like querying framework written entirely in Python using an OOP-based architecture.",
         "codeUrl": "https://github.com/ivanharvard/sqlito",
         "tags": ["Python", "SQL"]
     },
     {
-        "title": "DPClustering",
-        "blurb": "A research project that implements a Python package to investigate the application of differential privacy (DP) to common clustering algorithms.",
-        "liveUrl": "/pdf/CS2080_Poster.pdf",
-        "codeUrl": "https://github.com/connorbuchheit/DPClustering",
-        "tags": ["Python", "Machine Learning", "Data Science", "Data Privacy"]
+        "title": "Privacy-First Facial Recognition",
+        "blurb": "Blur-by-default face recognition that only activates on user participation (e.g., hand raise), then unblurs a small ROI to identify.",
+        "codeUrl": "https://github.com/ivanharvard/facialrecog-apcomp221",
+        "tags": ["Python", "Machine Learning", "Computer Vision", "Data Privacy"]
     }
 ]

@@ -76,7 +76,7 @@ export default function ExperienceCard(
 
             {/* Organization link */}
             <div className="actions">
-                {url && <a className="btn" href={url} target="_blank" rel="noreferrer">Visit</a>}
+                {url && <a className="btn" href={url} target="_blank" rel="noreferrer">More info</a>}
             </div>
         </article>
         
