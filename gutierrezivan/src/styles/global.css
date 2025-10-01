@@ -387,7 +387,7 @@ a:hover {
 .role-entry:not(:last-child)::after {
   content: '';
   position: absolute;
-  left: calc(var(--line-offset) - 6px); /* Center line under dot */
+  left: calc(var(--line-offset) - 6.3px); /* Center line under dot */
   top: var(--dot-position); /* Start from center of current dot */
   bottom: calc(-40px + var(--line-offset)); /* Extend to next entry center */
   width: var(--line-width);
