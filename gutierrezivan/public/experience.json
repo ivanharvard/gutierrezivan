@@ -49,13 +49,15 @@
             {
                 "title": "Director",
                 "startDate": "Mar. 2025",
-                "location": "Cambridge, MA"
+                "location": "Cambridge, MA",
+                "blurb": "Lead Harvard's premier flagship hackathon (3,000+ applicants, 1,200 accepted), guiding five teams across Tech, Logistics, Finance, Marketing, and Hacker Experience."
             },
             {
                 "title": "Tech Team Member",
                 "startDate": "Mar. 2024",
                 "endDate": "Mar. 2025",
-                "location": "Cambridge, MA"
+                "location": "Cambridge, MA",
+                "blurb": "Assisted in technical direction and infrastructure for HackHarvard 2024, including website development, submission platform, and internal tools used by thousands."
             }
         ],
         "url": "https://hackharvard.io",
@@ -68,13 +70,15 @@
             {
                 "title": "Algo Team Lead",
                 "startDate": "Nov. 2024",
-                "location": "Cambridge, MA"
+                "location": "Cambridge, MA",
+                "blurb": "Co-led the algorithm team for Datamatch, a matchmaking service for over 16,000+ students nationwide, debugging and optimizing legacy C++ code to generate results on a deadline."
             },
             {
                 "title": "Algo Team Member",
                 "startDate": "Nov. 2023",
                 "endDate": "Nov. 2024",
-                "location": "Cambridge, MA"
+                "location": "Cambridge, MA",
+                "blurb": "Maintained and improved internal utilities for Datamatch, attending weekly meetings and seminars on algorithm design and data structures."
             }
         ],
         "url": "https://datamatch.io",
