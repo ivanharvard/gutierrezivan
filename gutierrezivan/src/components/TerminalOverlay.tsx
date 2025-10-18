@@ -8,6 +8,8 @@ type Props = {
   onOpen: () => void;
   onClose: () => void;
   email?: string;
+  // Navigate to a site section without scrolling the page
+  navigate?: (section: "about" | "projects" | "contact" | "experience") => void;
 };
 
 const DEFAULT_WINDOW_HEIGHT = 0.4;
@@ -19,7 +21,7 @@ const NUDGE_DURATION = 800;
 const NUDGE_TICK = 2000;
 
 export default function TerminalOverlay({
-  open, onOpen, onClose, email = "guest@gutierrezivan",
+  open, onOpen, onClose, email = "guest@gutierrezivan", navigate,
 }: Props) {
   const [height, setHeight] = useState(Math.round(window.innerHeight * DEFAULT_WINDOW_HEIGHT));
   const [prevHeight, setPrevHeight] = useState<number | null>(null);
@@ -35,7 +37,17 @@ export default function TerminalOverlay({
 
   const { lines, cmd, setCmd, bodyRef, executeCommand, prompt, onKeyDown } = useTerminal({
     who: { user, host },
-    navigate: (section) => (location.hash = `#${section}`),
+    navigate: (section) => {
+      if (navigate) {
+        navigate(section);
+      } else {
+        // Fallback: update history manually without triggering scroll
+        const url = `${location.pathname}${location.search}#${section}`;
+        window.history.pushState({ section }, '', url);
+        // Inform any listeners relying on popstate to sync state
+        window.dispatchEvent(new PopStateEvent('popstate'));
+      }
+    },
     setTheme: (mode) => setTheme(mode),
     downloadResume: () => (document.getElementById("resumeLink") as HTMLAnchorElement | null)?.click(),
     openTerminal: () => {

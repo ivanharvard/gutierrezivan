@@ -20,17 +20,63 @@ export default function App() {
   const [section, setSection] = useState<Section>('root');
   const [terminalOpen, setTerminalOpen] = useState(false);
 
-  // sync with hash
-  useEffect(() => {
-    // on load, set section from hash
-    const fromHash = (h: string): Section => 
-      (["root", "about", "projects", "contact", "experience"].includes(h) ? (h as Section) : 'root');
-    const apply = () => setSection(fromHash(location.hash.replace("#", "")));
-    apply();
+  // helper to normalize hash into Section
+  const fromHash = useCallback((h: string): Section => (
+    ["root", "about", "projects", "contact", "experience"].includes(h)
+      ? (h as Section)
+      : 'root'
+  ), []);
 
-    window.addEventListener("hashchange", apply);
-    return () => window.removeEventListener("hashchange", apply);
+  // Navigate without causing the browser to scroll to the target element
+  const navigateTo = useCallback((s: Section) => {
+    setSection(s);
+    const url = s === 'root' ? `${location.pathname}${location.search}` : `${location.pathname}${location.search}#${s}`;
+    // Update URL without triggering default anchor scrolling
+    window.history.pushState({ section: s }, '', url);
   }, []);
+
+  // Initialize from current hash and keep in sync on history navigation
+  useEffect(() => {
+    // Initialize state from hash on first load
+    setSection(fromHash(location.hash.replace('#', '')));
+
+    // Prevent initial jump to anchor if page loaded with a hash
+    if (location.hash) {
+      // Defer to next tick and force scroll to top to avoid jumping to the target element
+      setTimeout(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      }, 0);
+    }
+
+    const onPopState = () => {
+      // When navigating back/forward, just update state; history API doesn't auto-scroll to hash targets
+      setSection(fromHash(location.hash.replace('#', '')));
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, [fromHash]);
+
+  // Intercept in-page anchor clicks like <a href="#contact"> to avoid scrolling to the element
+  useEffect(() => {
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as Element | null;
+      if (!target) return;
+      const anchor = target.closest('a[href^="#"]') as HTMLAnchorElement | null;
+      if (!anchor) return;
+
+      // Only handle same-page hash links
+      const href = anchor.getAttribute('href') || '';
+      // Ignore just '#' or empty
+      if (href === '#' || href === '') return;
+
+      e.preventDefault();
+      const next = fromHash(href.replace('#', ''));
+      navigateTo(next);
+    };
+
+    document.addEventListener('click', handleAnchorClick);
+    return () => document.removeEventListener('click', handleAnchorClick);
+  }, [fromHash, navigateTo]);
 
   // keyboard shortcuts definition
   const onKey = useCallback((e: KeyboardEvent) => {
@@ -54,10 +100,15 @@ export default function App() {
     <>
       <div className="wrap">
         <RootHeader />
-        <DirectoryGrid onSelect={(s) => (location.hash = s === 'root' ? '' : `#${s}`)} />
+  <DirectoryGrid onSelect={(s) => navigateTo(s)} />
         <SectionView section={section} />
 
-        <TerminalOverlay open={terminalOpen} onOpen={() => setTerminalOpen(true)} onClose={() => setTerminalOpen(false)} />
+        <TerminalOverlay 
+          open={terminalOpen} 
+          onOpen={() => setTerminalOpen(true)} 
+          onClose={() => setTerminalOpen(false)} 
+          navigate={(s) => navigateTo(s as Exclude<Section, 'root'>)}
+        />
       </div>
     </>
   )
