@@ -164,10 +164,10 @@ export function useTerminal(ctx: TerminalCtx) {
         
         // If we're at home (~) or root (/), go to root page
         if (tilde === "~" || targetAbs === "/" || tilde === "~/") {
-            // Clear hash to go to root/home page
-            if (window.location.hash) {
-                window.location.hash = "";
-            }
+            // Go to root/home page without scrolling
+            const url = `${location.pathname}${location.search}`;
+            window.history.pushState({}, '', url);
+            window.dispatchEvent(new PopStateEvent('popstate'));
             return true;
         }
         
@@ -209,10 +209,10 @@ export function useTerminal(ctx: TerminalCtx) {
         cd: (arg: string | undefined) => {
             if (!arg) { 
                 setCwd(HOME); 
-                // Navigate to root page when going to home
-                if (window.location.hash) {
-                    window.location.hash = "";
-                }
+                // Navigate to root page when going to home without scrolling
+                const url = `${location.pathname}${location.search}`;
+                window.history.pushState({}, '', url);
+                window.dispatchEvent(new PopStateEvent('popstate'));
                 return; 
             }
             const ok = chdir(arg);
