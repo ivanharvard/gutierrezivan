@@ -1,17 +1,22 @@
 [
     {
-        "title": "NewsVibe",
-        "blurb": "A web app that uses machine learning to estimate the sentiment of news organizations on a user-inputted topic.",
-        "liveUrl": "https://drive.google.com/file/d/1EELO6WAPl9UNP_TBVcfwPnZEczUHEeZz/view?usp=sharing",
-        "codeUrl": "https://github.com/ivanharvard/newsvibe",
-        "tags": ["Python", "Flask", "HTML/CSS", "JavaScript", "Machine Learning"]
-    },
-    {
         "title": "gutierrezivan.com",
         "blurb": "My personal website (that you're on right now!) built with React and Vite.",
         "liveUrl": "https://gutierrezivan.com",
         "codeUrl": "https://github.com/ivanharvard/gutierrezivan",
         "tags": ["TypeScript", "React", "Vite", "HTML/CSS"]
+    },
+    {
+        "title": "FirstAid-LLM",
+        "blurb": "A first-aid chatbot that uses a large language model (LLM) using retrieval-augmented generation (RAG) of over 180+ quality first-aid documents to provide accurate first-aid information.",
+        "codeUrl": "https://github.com/firstaid-llm/AC215_firstaid-llm/",
+        "tags": ["Docker", "Kubernetes", "Pulumi", "Github Actions", "Python", "FastAPI", "PyTorch", "Streamlit"]
+    },
+    {
+        "title": "DP Summarization",
+        "blurb": "A research project that created and implemented two distinct algorithms that apply differential privacy (DP) to tasks surrounding summarizing private documents.",
+        "codeUrl": "https://github.com/hskhalaf/dp-summarization",
+        "tags": ["Python", "PyTorch", "Machine Learning", "Data Privacy", "Natural Language Processing"]
     },
     {
         "title": "DPClustering",
@@ -21,15 +26,28 @@
         "tags": ["Python", "Machine Learning", "Data Science", "Data Privacy"]
     },
     {
-        "title": "SQLito",
-        "blurb": "A SQL-like querying framework written entirely in Python using an OOP-based architecture.",
-        "codeUrl": "https://github.com/ivanharvard/sqlito",
-        "tags": ["Python", "SQL"]
+        "title": "Graphene",
+        "blurb": "A research paper search engine and visualization tool that uses citations to link related works together in a graph.",
+        "codeUrl": "https://github.com/cs1060f25/graph-project",
+        "tags": ["Node.js", "JavaScript", "React", "Vite", "HTML/CSS", "Firebase"]
     },
     {
         "title": "Privacy-First Facial Recognition",
         "blurb": "Blur-by-default face recognition that only activates on user participation (e.g., hand raise), then unblurs a small ROI to identify.",
         "codeUrl": "https://github.com/ivanharvard/facialrecog-apcomp221",
         "tags": ["Python", "Machine Learning", "Computer Vision", "Data Privacy"]
+    }
+    {
+        "title": "SQLito",
+        "blurb": "A SQL-like querying framework written entirely in Python using an OOP-based architecture.",
+        "codeUrl": "https://github.com/ivanharvard/sqlito",
+        "tags": ["Python", "SQL"]
+    },
+    {
+        "title": "NewsVibe",
+        "blurb": "A web app that uses machine learning to estimate the sentiment of news organizations on a user-inputted topic.",
+        "liveUrl": "https://drive.google.com/file/d/1EELO6WAPl9UNP_TBVcfwPnZEczUHEeZz/view?usp=sharing",
+        "codeUrl": "https://github.com/ivanharvard/newsvibe",
+        "tags": ["Python", "Flask", "HTML/CSS", "JavaScript", "Machine Learning"]
     }
 ]
