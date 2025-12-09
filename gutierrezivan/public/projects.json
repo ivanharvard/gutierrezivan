@@ -2,7 +2,6 @@
     {
         "title": "gutierrezivan.com",
         "blurb": "My personal website (that you're on right now!) built with React and Vite.",
-        "liveUrl": "https://gutierrezivan.com",
         "codeUrl": "https://github.com/ivanharvard/gutierrezivan",
         "tags": ["TypeScript", "React", "Vite", "HTML/CSS"]
     },
