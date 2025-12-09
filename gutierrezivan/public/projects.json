@@ -36,7 +36,7 @@
         "blurb": "Blur-by-default face recognition that only activates on user participation (e.g., hand raise), then unblurs a small ROI to identify.",
         "codeUrl": "https://github.com/ivanharvard/facialrecog-apcomp221",
         "tags": ["Python", "Machine Learning", "Computer Vision", "Data Privacy"]
-    }
+    },
     {
         "title": "SQLito",
         "blurb": "A SQL-like querying framework written entirely in Python using an OOP-based architecture.",
