@@ -14,6 +14,7 @@
     {
         "title": "DP Summarization",
         "blurb": "A research project that created and implemented two distinct algorithms that apply differential privacy (DP) to tasks surrounding summarizing private documents.",
+        "liveUrl": "/pdf/CS2260_Poster.pdf",
         "codeUrl": "https://github.com/hskhalaf/dp-summarization",
         "tags": ["Python", "PyTorch", "Machine Learning", "Data Privacy", "Natural Language Processing"]
     },
