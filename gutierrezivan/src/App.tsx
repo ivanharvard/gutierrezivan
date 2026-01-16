@@ -6,7 +6,6 @@ import SectionView from "./components/SectionView";
 import TerminalOverlay from "./components/TerminalOverlay"; 
 import { getTheme, setTheme, applyAuto } from './theme';
 import type { Section } from './types/section';
-import { Analytics } from "@vercel/analytics/next"
 
 // Set initial theme
 const saved = getTheme();
@@ -110,7 +109,6 @@ export default function App() {
           onClose={() => setTerminalOpen(false)} 
           navigate={(s) => navigateTo(s as Exclude<Section, 'root'>)}
         />
-        <Analytics />
       </div>
     </>
   )
