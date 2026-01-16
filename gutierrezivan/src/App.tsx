@@ -6,6 +6,7 @@ import SectionView from "./components/SectionView";
 import TerminalOverlay from "./components/TerminalOverlay"; 
 import { getTheme, setTheme, applyAuto } from './theme';
 import type { Section } from './types/section';
+import { Analytics } from "@vercel/analytics/next"
 
 // Set initial theme
 const saved = getTheme();
