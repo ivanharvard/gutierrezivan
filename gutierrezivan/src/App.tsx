@@ -110,6 +110,7 @@ export default function App() {
           onClose={() => setTerminalOpen(false)} 
           navigate={(s) => navigateTo(s as Exclude<Section, 'root'>)}
         />
+        <Analytics />
       </div>
     </>
   )
