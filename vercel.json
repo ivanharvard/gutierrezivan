@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/vday2026",
+      "destination": "https://vday2026-five.vercel.app/"
+    },
+    {
+      "source": "/vday2026/:path*",
+      "destination": "https://vday2026-five.vercel.app/:path*"
+    }
+  ]
+}
