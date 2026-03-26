@@ -2,6 +2,7 @@ import { useEffect, useMemo, useCallback, useRef, useState } from "react";
 import type { Project } from "../src/types/Project";
 import type { ThemeMode } from "../src/themeConfig";
 import { getThemeListWithAuto, getThemeNames } from "../src/themeConfig";
+import type { Experience } from "../src/types/Experience";
 
 export type TerminalCtx = {
     who?: { user: string; host: string };
@@ -11,6 +12,7 @@ export type TerminalCtx = {
     openTerminal?: () => void;
     openUrl?: (href: string) => void;
     projects: Array<Project>;
+    experience: Array<Experience>;
 };
 
 export type CommandHandler = (arg?: string) => void;
@@ -108,11 +110,11 @@ export function useTerminal(ctx: TerminalCtx) {
             "linkedin.txt": { type: "file", content: document.getElementById("linkedin")?.textContent || "" },
         } };
 
-        // ~/projects (one file per project)
+        // ~/projects
         const projectsDir: NodeDir = { type: "dir", entries: {} };
-        const list = ctx.projects || [];
-        for (const p of list) {
-            const name = `${slug(p.title || "project")}.proj`;
+        const projList = ctx.projects || [];
+        for (const p of projList) {
+            const name = `${p.title}.proj`;
             const body = [
                 `Title: ${p.title}`,
                 p.blurb ? `Blurb: ${p.blurb}` : "",
@@ -120,17 +122,59 @@ export function useTerminal(ctx: TerminalCtx) {
                 p.codeUrl ? `Code: ${p.codeUrl}` : "",
                 p.tags && p.tags.length ? `Tags: ${p.tags.join(", ")}` : "",
             ].filter(Boolean).join("\n");
-            projectsDir.entries[name] = { type: "file", content: body || p.title || name }; 
+            projectsDir.entries[name] = { type: "file", content: body || p.title || name };
         }
         home.entries["projects"] = projectsDir;
 
         // ~/experience
-        home.entries["experience"] = { type: "dir", entries: {
-            "resume.txt": { type: "file", content: "Download resume from contact section" },
-        } };
+        const experienceDir: NodeDir = { type: "dir", entries: {} };
+        const expList = ctx.experience || [];
+
+        for (const e of expList) {
+            const orgKey = slug(e.organization) || e.organization;
+            const orgDir: NodeDir = { type: "dir", entries: {} };
+
+            for (const r of e.roles) {
+                const baseSlug = slug(r.title) || "role";
+                const roleKeyBase = `${baseSlug}.role`;
+                let roleKey = roleKeyBase;
+                let counter = 2;
+
+                while (orgDir.entries[roleKey]) {
+                    roleKey = `${baseSlug}-${counter}.role`;
+                    counter++;
+                }
+
+                const roleBody = [
+                    `Organization: ${e.organization}`,
+                    `Type: ${e.type}`,
+                    `Title: ${r.title}`,
+                    `Start Date: ${r.startDate}`,
+                    r.endDate ? `End Date: ${r.endDate}` : `End Date: Present`,
+                    r.location ? `Location: ${r.location}` : "",
+                    e.url ? `URL: ${e.url}` : "",
+                    e.tags && e.tags.length ? `Tags: ${e.tags.join(", ")}` : "",
+                    r.blurb ? `Blurb: ${r.blurb}` : "",
+                ].filter(Boolean).join("\n");
+
+                orgDir.entries[roleKey] = { type: "file", content: roleBody };
+            }
+
+            let finalOrgKey = orgKey;
+            let orgCounter = 2;
+
+            while (experienceDir.entries[finalOrgKey]) {
+                finalOrgKey = `${orgKey}-${orgCounter}`;
+                orgCounter++;
+            }
+
+            experienceDir.entries[finalOrgKey] = orgDir;
+        }
+
+        home.entries["experience"] = experienceDir;
 
         return root;
-    }, [ctx]);
+    }, [ctx.projects, ctx.experience]);
 
     // resolve absolute path
     const resolve = useCallback((absPath: string): VfsNode | null => {
