@@ -6,6 +6,12 @@
         "tags": ["TypeScript", "React", "Vite", "HTML/CSS"]
     },
     {
+        "title": "Chickadee OS",
+        "blurb": "A UNIX-like multiprocessor teaching OS built in CS 1610, implementing virtual memory, process and thread management, and system calls, and designing a virtual file system (VFS) abstraction.",
+        "liveUrl": "https://read.seas.harvard.edu/cs1610/2026/",
+        "tags": ["C++", "Operating Systems"] 
+    },
+    {
         "title": "FirstAid-LLM",
         "blurb": "A first-aid chatbot that uses a large language model (LLM) using retrieval-augmented generation (RAG) of over 180+ quality first-aid documents to provide accurate first-aid information.",
         "codeUrl": "https://github.com/firstaid-llm/AC215_firstaid-llm/",
