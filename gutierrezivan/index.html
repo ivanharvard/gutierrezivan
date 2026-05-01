@@ -1,15 +1,41 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <!-- Favicon -->
     <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Determine and apply initial theme before CSS/JS loads to prevent flash -->
+    <script>
+      (function(){
+        try {
+          var saved = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = saved || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+          // add a temporary class to suppress transitions until full CSS loads
+          document.documentElement.classList.add('theme-prevent-transition');
+        } catch(e) { /* ignore */ }
+      })();
+    </script>
+    <style>
+      html[data-theme="dark"], body { background: #0b0b0b; color: #eaeaea; }
+      html[data-theme="light"], body { background: #ffffff; color: #0b0b0b; }
+      #root { min-height: 100vh; background: inherit; color: inherit; }
+      /* Temporarily disable transitions until full CSS loads */
+      html.theme-prevent-transition * { transition: none !important; }
+    </style>
     <script src="https://kit.fontawesome.com/57415f32d6.js" crossorigin="anonymous"></script>
     <title>ivan gutierrez's website</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+      <script>
+        // Re-enable transitions once everything (CSS/JS) has loaded
+        window.addEventListener('load', function(){
+          try { document.documentElement.classList.remove('theme-prevent-transition'); } catch(e){}
+        });
+      </script>
   </body>
 </html>
