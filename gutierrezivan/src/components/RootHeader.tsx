@@ -7,7 +7,7 @@ export default function RootHeader() {
                 </div>
                 <div>
                     <div className="title">ivan gutierrez</div>
-                    <div className="muted">harvard CS | software engineer</div>
+                    <div className="muted">harvard CS | software engineer | data scientist</div>
                 </div>
             </div>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>

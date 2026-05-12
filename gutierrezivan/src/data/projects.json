@@ -7,7 +7,7 @@
     },
     {
         "title": "Chickadee OS",
-        "blurb": "A UNIX-like multiprocessor teaching OS built in CS 1610, implementing virtual memory, process and thread management, and system calls, and designing a virtual file system (VFS) abstraction.",
+        "blurb": "A UNIX-like multiprocessor teaching OS, implementing virtual memory, process and thread management, system calls, PC Speaker support, and designing a virtual file system (VFS) abstraction.",
         "liveUrl": "https://read.seas.harvard.edu/cs1610/2026/",
         "tags": ["C++", "Operating Systems"] 
     },
@@ -30,6 +30,12 @@
         "liveUrl": "/pdf/CS2080_Poster.pdf",
         "codeUrl": "https://github.com/connorbuchheit/DPClustering",
         "tags": ["Python", "Machine Learning", "Data Science", "Data Privacy"]
+    },
+    {
+        "title": "Dual Markets: Upward Mobility in Destin and Okaloosa County",
+        "blurb": "A data science project that uses U.S. Census data to analyze the relationship between upward mobility of children and various socioeconomic factors in Destin and Okaloosa County, Florida.",
+        "liveUrl": "/pdf/EC50_Paper.pdf",
+        "tags": ["R", "Tidyverse", "Data Science", "Data Visualization", "Economics"]
     },
     {
         "title": "Graphene",
