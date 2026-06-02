@@ -1,6 +1,18 @@
 [
     {
         "type": "work",
+        "organization": "Sabinok Corporation",
+        "roles": [
+            {
+                "title": "Consultant Intern",
+                "startDate": "Jul. 2026",
+                "location": "Somerville, MA",
+                "blurb": "Just started!"
+            }
+        ]
+    },
+    {
+        "type": "work",
         "organization": "CS50x",
         "roles": [
             {
@@ -35,7 +47,7 @@
             {
                 "title": "Teaching Fellow [CS50] @ Harvard College",
                 "startDate": "Aug. 2025",
-                "endData": "Dec. 2025",
+                "endDate": "Dec. 2025",
                 "location": "Cambridge, MA",
                 "blurb": "Lectured 15+ students on Computer Science basics and guided them in C, Python, SQL, HTML/CSS/Javascript, and Flask."
             }
@@ -48,10 +60,17 @@
         "organization": "HackHarvard Undergraduate Hackathon",
         "roles": [
             {
+                "title": "Advisory Council Member",
+                "startDate": "Mar. 2026",
+                "location": "Cambridge, MA",
+                "blurb": "Hold a seat alongside previous HackHarvard directors and alumni to provide strategic and technical guidance for the future of the hackathon."
+            },
+            {
                 "title": "Director",
                 "startDate": "Mar. 2025",
+                "endDate": "Mar. 2026",
                 "location": "Cambridge, MA",
-                "blurb": "Lead Harvard's premier flagship hackathon (3,000+ applicants, 1,200 accepted), guiding five teams across Tech, Logistics, Finance, Marketing, and Hacker Experience."
+                "blurb": "Led Harvard's premier flagship hackathon (3,000+ applicants, 1,200 accepted), guiding five teams across Tech, Logistics, Finance, Marketing, and Hacker Experience."
             },
             {
                 "title": "Tech Team Member",
