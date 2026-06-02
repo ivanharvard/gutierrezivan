@@ -4,12 +4,14 @@
         "organization": "Sabinok Corporation",
         "roles": [
             {
-                "title": "Consultant Intern",
+                "title": "Consultant",
                 "startDate": "Jul. 2026",
                 "location": "Somerville, MA",
                 "blurb": "Just started!"
             }
-        ]
+        ],
+        "url": "https://sabinok.com",
+        "tags": ["Rust", "AI", "Market Research"]
     },
     {
         "type": "work",
