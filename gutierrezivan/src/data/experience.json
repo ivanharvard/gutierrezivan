@@ -90,6 +90,12 @@
         "organization": "Datamatch",
         "roles": [
             {
+                "title": "Supreme Cupid",
+                "startDate": "Mar. 2026",
+                "location": "Cambridge, MA",
+                "blurb": "Co-lead the entire Datamatch organization. Just started!"
+            },
+            {
                 "title": "Algo Team Lead",
                 "startDate": "Nov. 2024",
                 "location": "Cambridge, MA",
