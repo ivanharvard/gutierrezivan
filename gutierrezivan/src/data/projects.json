@@ -6,6 +6,13 @@
         "tags": ["TypeScript", "React", "Vite", "HTML/CSS"]
     },
     {
+        "title": "QGuider",
+        "blurb": "A fluent, object-oriented Python library for downloading and scraping Harvard's QGuides, with over 130 downloads on PyPI.",
+        "liveUrl": "https://pypi.org/project/qguider/",
+        "codeUrl": "https://github.com/ivanharvard/qguider",
+        "tags": ["Python", "Web Scraping", "Data Science"]
+    },
+    {
         "title": "Chickadee OS",
         "blurb": "A UNIX-like multiprocessor teaching OS, implementing virtual memory, process and thread management, system calls, PC Speaker support, and designing a virtual file system (VFS) abstraction.",
         "liveUrl": "https://read.seas.harvard.edu/cs1610/2026/",

@@ -4,10 +4,10 @@
         "organization": "Sabinok Corporation",
         "roles": [
             {
-                "title": "Consultant",
+                "title": "Software Engineering Intern",
                 "startDate": "Jul. 2026",
                 "location": "Somerville, MA",
-                "blurb": "Just started!"
+                "blurb": "Creating next-generation tools for Rust developers."
             }
         ],
         "url": "https://sabinok.com",
@@ -93,7 +93,7 @@
                 "title": "Supreme Cupid",
                 "startDate": "Mar. 2026",
                 "location": "Cambridge, MA",
-                "blurb": "Co-lead the entire Datamatch organization. Just started!"
+                "blurb": "Co-lead the entire Datamatch organization."
             },
             {
                 "title": "Algo Team Lead",
