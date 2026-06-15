@@ -7,7 +7,7 @@
     },
     {
         "title": "QGuider",
-        "blurb": "A fluent, object-oriented Python library for downloading and scraping Harvard's QGuides, with over 130 downloads on PyPI.",
+        "blurb": "A fluent, object-oriented Python library for downloading and scraping Harvard's student-submitted course reviews (QGuides), with over 130 downloads on PyPI.",
         "liveUrl": "https://pypi.org/project/qguider/",
         "codeUrl": "https://github.com/ivanharvard/qguider",
         "tags": ["Python", "Web Scraping", "Data Science"]
