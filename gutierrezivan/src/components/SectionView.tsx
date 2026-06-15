@@ -45,7 +45,7 @@ export default function SectionView(
                         <br /><br />
                         I also have a great interest in privacy and security, and I enjoy investigating technologies that are designed to protect (and steal!) user data. I've met some of the most fascinating professors and researchers through my interest in this field, and I look forward to continuing to learn more about it in the future. Hopefully, I'll get to build more projects that prioritize user privacy while still delivering great user experiences.
                         <br /><br />
-                        In my free time, I enjoy going to the movie theatre and playing the daily Wordle!
+                        In my free time, I enjoy going to the movie theater! #proudAMCALister
                         <br /><br />
                         Feel free to <a href="#contact">reach out</a> if you'd like to connect.
                     </p>
