@@ -41,7 +41,7 @@ export default function SectionView(
                     <p id="aboutText">
                         Hey! My name is Ivan. I'm a <span id="harvardRole">{getHarvardRole()}</span>.
                         <br /><br />
-                        I grew up in Destin, FL, a small beach town known for its white sand beaches. I currently live in Cambridge, MA while attending Harvard University. I think the field of Computer Science can feel particularly daunting to those who are just starting out, so I feel uniquely inclined to make Computer Science as accessible as possible, regardless of background. I strive to participate in efforts that promote CS education for all.
+                        I grew up in Destin, FL, a small town known for its white sand beaches. I currently live in Cambridge, MA while attending Harvard University. I think the field of Computer Science can feel particularly daunting to those who are just starting out, so I feel uniquely inclined to make Computer Science as accessible as possible, regardless of background. I strive to participate in efforts that promote CS education for all.
                         <br /><br />
                         I also have a great interest in privacy and security, and I enjoy investigating technologies that are designed to protect (and steal!) user data. I've met some of the most fascinating professors and researchers through my interest in this field, and I look forward to continuing to learn more about it in the future. Hopefully, I'll get to build more projects that prioritize user privacy while still delivering great user experiences.
                         <br /><br />
