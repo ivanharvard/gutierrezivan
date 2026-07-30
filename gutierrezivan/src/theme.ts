@@ -1,64 +1,20 @@
 import { type ThemeMode, type ThemeName, THEME_CONFIG, getThemeNames } from './themeConfig';
 
 type Mode = ThemeMode;
+type TransitionDocument = Document & {
+    startViewTransition?: (update: () => void) => { finished: Promise<void> };
+};
 
-const KEY = "theme";
-
-/// getTheme()
-///     Reads the theme from localStorage. The Bold Signal design defaults to dark.
+const KEY = 'theme';
+const TRANSITION_MS = 320;
+let fallbackTimer: number | undefined;
 
 export function getTheme(): Exclude<Mode, 'toggle'> {
     const saved = localStorage.getItem(KEY) as Mode | null;
-    if (saved === 'toggle' || saved === null) {
-        return 'dark';
-    }
-    return saved;
+    return saved === 'toggle' || saved === null ? 'dark' : saved;
 }
 
-/// setTheme(mode)
-///     Sets the theme to any available theme, 'auto', or toggles between light and dark.
-
-export function setTheme(mode: Mode) {
-    const root = document.documentElement;
-
-    if (mode === "toggle") {
-        const current = root.getAttribute("data-theme") as ThemeName | null;
-        mode = current === "light" ? "dark" : "light";
-    }
-
-    if (mode === "auto") {
-        localStorage.setItem(KEY, 'auto');
-        applyAuto();
-        return;
-    }
-
-    // Validate theme name
-    if (getThemeNames().includes(mode as ThemeName)) {
-        root.setAttribute("data-theme", mode);
-        localStorage.setItem(KEY, mode);
-        
-        // Apply CSS custom properties dynamically
-        const themeConfig = THEME_CONFIG[mode as ThemeName];
-        if (themeConfig) {
-            const { colors } = themeConfig;
-            root.style.setProperty('--bg', colors.bg);
-            root.style.setProperty('--text', colors.text);
-            root.style.setProperty('--muted', colors.muted);
-            root.style.setProperty('--card', colors.card);
-            root.style.setProperty('--ring', colors.ring);
-            root.style.setProperty('--accent', colors.accent);
-            root.style.setProperty('--mono-bg', colors.monoBg);
-            root.style.setProperty('--mono-text', colors.monoText);
-        }
-    }
-}
-
-/// applyAuto()
-///     Applies the 'auto' theme based on system preferences.
-
-export function applyAuto() {
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const themeName: ThemeName = prefersDark ? 'dark' : 'light';
+function applyTheme(themeName: ThemeName) {
     const root = document.documentElement;
     const { colors } = THEME_CONFIG[themeName];
 
@@ -71,4 +27,53 @@ export function applyAuto() {
     root.style.setProperty('--accent', colors.accent);
     root.style.setProperty('--mono-bg', colors.monoBg);
     root.style.setProperty('--mono-text', colors.monoText);
+}
+
+function updateWithTransition(update: () => void) {
+    const root = document.documentElement;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (root.classList.contains('theme-prevent-transition') || reduceMotion) {
+        update();
+        return;
+    }
+
+    const transitionDocument = document as TransitionDocument;
+    if (transitionDocument.startViewTransition) {
+        transitionDocument.startViewTransition(update);
+        return;
+    }
+
+    window.clearTimeout(fallbackTimer);
+    root.classList.remove('theme-transitioning');
+    void root.offsetWidth;
+    root.classList.add('theme-transitioning');
+    update();
+    fallbackTimer = window.setTimeout(() => root.classList.remove('theme-transitioning'), TRANSITION_MS);
+}
+
+export function setTheme(mode: Mode) {
+    const root = document.documentElement;
+
+    if (mode === 'toggle') {
+        const current = root.getAttribute('data-theme') as ThemeName | null;
+        mode = current === 'light' ? 'dark' : 'light';
+    }
+
+    if (mode === 'auto') {
+        localStorage.setItem(KEY, 'auto');
+        updateWithTransition(() => applyAuto());
+        return;
+    }
+
+    if (getThemeNames().includes(mode as ThemeName)) {
+        const themeName = mode as ThemeName;
+        localStorage.setItem(KEY, themeName);
+        updateWithTransition(() => applyTheme(themeName));
+    }
+}
+
+export function applyAuto() {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(prefersDark ? 'dark' : 'light');
 }

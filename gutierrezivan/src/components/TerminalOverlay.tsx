@@ -4,6 +4,7 @@ import { useProjects } from "../data/projects";
 import { setTheme } from "../theme";
 import { useExperiences } from "../data/experiences";
 import type { Section } from "../types/section";
+import { getBioText, PROFILE } from "../data/profile";
 
 type Props = {
   open: boolean;
@@ -46,7 +47,7 @@ export default function TerminalOverlay({
       }
     },
     setTheme: (mode) => setTheme(mode),
-    downloadResume: () => (document.getElementById("resumeLink") as HTMLAnchorElement | null)?.click(),
+    openResume: () => (document.getElementById("resumeLink") as HTMLAnchorElement | null)?.click(),
     openTerminal: () => {
       if (!open) {
         onOpen();
@@ -62,7 +63,9 @@ export default function TerminalOverlay({
       }, FOCUS_DELAY + 100); // Extra delay for navigation and DOM updates
     },
     projects: useProjects().data || [],
-    experience: useExperiences().data || []
+    experience: useExperiences().data || [],
+    bio: getBioText(),
+    contact: PROFILE,
   });
 
   const clamp = (h: number) => Math.max(MIN_H, Math.min(h, Math.floor(window.innerHeight * MAX_WINDOW_HEIGHT)));

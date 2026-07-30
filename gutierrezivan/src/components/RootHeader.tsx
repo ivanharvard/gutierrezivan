@@ -1,4 +1,5 @@
 import type { Section } from '../types/section';
+import { PROFILE } from '../data/profile';
 
 type Props = {
   onNavigate: (section: Section) => void;
@@ -37,7 +38,7 @@ export default function RootHeader({ onNavigate, onOpenTerminal }: Props) {
         <a
           className="resume-button"
           id="resumeLink"
-          href="https://gutierrezivan.netlify.app/resume.pdf"
+          href={PROFILE.resumeUrl}
           target="_blank"
           rel="noopener noreferrer"
         >

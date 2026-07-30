@@ -9,11 +9,18 @@ export type TerminalCtx = {
     who?: { user: string; host: string };
     navigate: (section: Section) => void;
     setTheme: (mode: ThemeMode) => void;
-    downloadResume: () => void;
+    openResume: () => void;
     openTerminal?: () => void;
     openUrl?: (href: string) => void;
     projects: Array<Project>;
     experience: Array<Experience>;
+    bio: string;
+    contact: {
+        email: string;
+        resumeUrl: string;
+        githubUrl: string;
+        linkedinUrl: string;
+    };
 };
 
 export type CommandHandler = (arg?: string) => void;
@@ -100,15 +107,15 @@ export function useTerminal(ctx: TerminalCtx) {
 
         // ~/about
         home.entries["about"] = { type: "dir", entries: {
-            "bio.txt": { type: "file", content: document.getElementById("aboutText")?.textContent || "" },
+            "bio.txt": { type: "file", content: ctx.bio },
         } };
 
         // ~/contact
         home.entries["contact"] = { type: "dir", entries: {
-            "email.txt": { type: "file", content: document.getElementById("email")?.textContent || "" },
-            "resume.txt": { type: "file", content: document.getElementById("resumeLink")?.getAttribute("href") || "" },
-            "github.txt": { type: "file", content: document.getElementById("github")?.textContent || "" },
-            "linkedin.txt": { type: "file", content: document.getElementById("linkedin")?.textContent || "" },
+            "email.txt": { type: "file", content: ctx.contact.email },
+            "resume.txt": { type: "file", content: ctx.contact.resumeUrl },
+            "github.txt": { type: "file", content: ctx.contact.githubUrl },
+            "linkedin.txt": { type: "file", content: ctx.contact.linkedinUrl },
         } };
 
         // ~/projects
@@ -175,7 +182,7 @@ export function useTerminal(ctx: TerminalCtx) {
         home.entries["experience"] = experienceDir;
 
         return root;
-    }, [ctx.projects, ctx.experience]);
+    }, [ctx.projects, ctx.experience, ctx.bio, ctx.contact]);
 
     // resolve absolute path
     const resolve = useCallback((absPath: string): VfsNode | null => {
@@ -232,7 +239,7 @@ export function useTerminal(ctx: TerminalCtx) {
 
     const registry = useMemo(() => ({
         help: () =>
-        print(`Commands: help, ls [path], pwd, cd [path], cat <file>, theme [${getThemeListWithAuto()}], rm [-rf] [path], download, clipforge, see-code, clear`),
+        print(`Commands: help, ls [path], pwd, cd [path], cat <file>, theme [${getThemeListWithAuto()}], rm [-rf] [path], resume, clipforge, see-code, clear`),
 
         clear: () => clear(),
 
@@ -287,9 +294,9 @@ export function useTerminal(ctx: TerminalCtx) {
             }
         },
 
-        download: () => {
-            print("Downloading resume...");
-            ctx.downloadResume();
+        resume: () => {
+            print("Opening resume...");
+            ctx.openResume();
         },
 
         clipforge: () => {

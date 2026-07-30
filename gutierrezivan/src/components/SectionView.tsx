@@ -1,5 +1,6 @@
 import { useExperiences } from '../data/experiences';
 import { useProjects } from '../data/projects';
+import { ABOUT_LEDE, getHarvardRole, PROFILE } from '../data/profile';
 import type { Section } from '../types/section';
 import ExperienceCard from './ExperienceCard';
 import ProjectCard from './ProjectCard';
@@ -8,17 +9,6 @@ type Props = {
   onNavigate: (section: Section) => void;
   onOpenTerminal: () => void;
 };
-
-function getHarvardRole() {
-  const today = new Date();
-  const graduation = new Date('2027-05-31T23:59:59');
-
-  if (today <= graduation) {
-    return 'Harvard senior studying Computer Science';
-  }
-
-  return 'Harvard graduate with a B.A. in Computer Science';
-}
 
 export default function SectionView({ onNavigate, onOpenTerminal }: Props) {
   const { data: projects } = useProjects();
@@ -74,8 +64,7 @@ export default function SectionView({ onNavigate, onOpenTerminal }: Props) {
         <div className="about-layout">
           <div className="about-copy" id="aboutText">
             <p className="about-lede">
-              Curiosity got me into computer science. A desire to make it more useful—and more
-              accessible—keeps me here.
+              {ABOUT_LEDE}
             </p>
             <div className="about-columns">
               <p>
@@ -103,7 +92,7 @@ export default function SectionView({ onNavigate, onOpenTerminal }: Props) {
               <img src="/images/kenny.jpg" alt="Ivan with a friend outdoors" loading="lazy" />
             </figure>
             <figure>
-              <img src="/images/ciara.jpg" alt="Ivan and a friend at an event" loading="lazy" />
+              <img src="/images/zoe.jpg" alt="Ivan and a friend outdoors" loading="lazy" />
             </figure>
           </div>
         </div>
@@ -155,15 +144,15 @@ export default function SectionView({ onNavigate, onOpenTerminal }: Props) {
           </div>
           <div className="contact-main">
             <h2 id="contact-title">LET&apos;S TALK.</h2>
-            <a className="contact-email" href="mailto:igzjobs@gmail.com" id="email">
-              igzjobs@gmail.com <span aria-hidden="true">↗</span>
+            <a className="contact-email" href={`mailto:${PROFILE.email}`} id="email">
+              {PROFILE.email} <span aria-hidden="true">↗</span>
             </a>
           </div>
           <div className="contact-links" aria-label="Social links">
-            <a href="https://www.github.com/ivanharvard" id="github" target="_blank" rel="noopener noreferrer">
+            <a href={PROFILE.githubUrl} id="github" target="_blank" rel="noopener noreferrer">
               GitHub <span aria-hidden="true">↗</span>
             </a>
-            <a href="https://www.linkedin.com/in/-ivan-gutierrez/" id="linkedin" target="_blank" rel="noopener noreferrer">
+            <a href={PROFILE.linkedinUrl} id="linkedin" target="_blank" rel="noopener noreferrer">
               LinkedIn <span aria-hidden="true">↗</span>
             </a>
           </div>

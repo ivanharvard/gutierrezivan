@@ -7,7 +7,7 @@ export default function ProjectCard({ title, blurb, liveUrl, codeUrl, tags, inde
     <article className="project-card">
       <div className="project-index">P/{String(index).padStart(2, '0')}</div>
       <div className="project-content">
-        <h3>{title}</h3>
+        <h3 className={title === 'gutierrezivan.com' ? 'url-title' : undefined}>{title}</h3>
         <p>{blurb}</p>
         {tags?.length ? (
           <ul className="tags" aria-label={`${title} technologies`}>

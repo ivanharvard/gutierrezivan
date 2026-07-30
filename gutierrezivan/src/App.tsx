@@ -67,7 +67,6 @@ export default function App() {
       </main>
 
       <footer className="site-footer">
-        <p>Designed and built by Ivan Gutierrez.</p>
         <button type="button" className="text-button" onClick={() => navigateTo('root')}>
           Back to top <span aria-hidden="true">&uarr;</span>
         </button>

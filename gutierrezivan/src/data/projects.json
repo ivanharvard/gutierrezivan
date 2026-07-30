@@ -7,10 +7,10 @@
     },
     {
         "title": "ClipForge",
-        "blurb": "A browser-based video editor for trimming, transforming, and compressing files locally with Rust and WebAssembly.",
+        "blurb": "A lightweight single-clip video trimmer for Windows, Linux, and the web, with a shared Rust core and on-device processing through FFmpeg.",
         "liveUrl": "/clipforge/",
         "codeUrl": "https://github.com/ivanharvard/clipforge",
-        "tags": ["Rust", "WebAssembly", "React", "FFmpeg"]
+        "tags": ["Rust", "Slint", "libmpv", "FFmpeg", "WebAssembly", "React"]
     },
     {
         "title": "QGuider",
