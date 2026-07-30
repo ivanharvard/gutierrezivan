@@ -2,7 +2,6 @@
 
 :root {
   --bg: #1a1a1a;
-  --bg-deep: #111111;
   --text: #f4f2ed;
   --muted: #969696;
   --card: #222222;
@@ -31,9 +30,7 @@ body {
   min-height: 100dvh;
   margin: 0;
   overflow-x: hidden;
-  background:
-    radial-gradient(circle at 84% 8%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 24rem),
-    linear-gradient(145deg, var(--bg) 0%, var(--bg-deep) 100%);
+  background: var(--bg);
   color: var(--text);
   font-family: var(--body);
   font-size: 1rem;
@@ -313,7 +310,7 @@ h1 em {
   border: 1px solid var(--ring);
   border-radius: 0.25rem;
   color: var(--muted);
-  background: var(--bg-deep);
+  background: var(--card);
   font-size: 0.72rem;
 }
 
