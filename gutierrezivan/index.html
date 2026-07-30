@@ -2,40 +2,65 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Favicon -->
-    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Determine and apply initial theme before CSS/JS loads to prevent flash -->
+    <meta name="theme-color" content="#1a1a1a" />
+    <meta
+      name="description"
+      content="Ivan Gutierrez is a Harvard computer scientist and software engineer working across systems, data, privacy, and education."
+    />
+    <meta property="og:title" content="Ivan Gutierrez — Software Engineer" />
+    <meta
+      property="og:description"
+      content="Software engineering, data science, privacy research, and computer science education."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/images/avatar.jpg" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ivan Gutierrez",
+        "url": "https://gutierrezivan.com",
+        "image": "https://gutierrezivan.com/images/avatar.jpg",
+        "email": "mailto:igzjobs@gmail.com",
+        "jobTitle": "Software Engineer",
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Harvard University"
+        },
+        "sameAs": [
+          "https://github.com/ivanharvard",
+          "https://www.linkedin.com/in/-ivan-gutierrez/"
+        ]
+      }
+    </script>
     <script>
-      (function(){
+      (function () {
         try {
           var saved = localStorage.getItem('theme');
           var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-          var theme = saved || (prefersDark ? 'dark' : 'light');
+          var theme = !saved || saved === 'toggle' ? 'dark' : saved === 'auto' ? (prefersDark ? 'dark' : 'light') : saved;
           document.documentElement.setAttribute('data-theme', theme);
-          // add a temporary class to suppress transitions until full CSS loads
           document.documentElement.classList.add('theme-prevent-transition');
-        } catch(e) { /* ignore */ }
+        } catch (error) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
       })();
     </script>
     <style>
-      html[data-theme="dark"], body { background: #0b0b0b; color: #eaeaea; }
-      html[data-theme="light"], body { background: #ffffff; color: #0b0b0b; }
-      #root { min-height: 100vh; background: inherit; color: inherit; }
-      /* Temporarily disable transitions until full CSS loads */
+      html, body { background: #1a1a1a; color: #f4f2ed; }
+      #root { min-height: 100dvh; }
       html.theme-prevent-transition * { transition: none !important; }
     </style>
-    <script src="https://kit.fontawesome.com/57415f32d6.js" crossorigin="anonymous"></script>
-    <title>ivan gutierrez's website</title>
+    <title>Ivan Gutierrez — Software Engineer</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-      <script>
-        // Re-enable transitions once everything (CSS/JS) has loaded
-        window.addEventListener('load', function(){
-          try { document.documentElement.classList.remove('theme-prevent-transition'); } catch(e){}
-        });
-      </script>
+    <script>
+      window.addEventListener('load', function () {
+        document.documentElement.classList.remove('theme-prevent-transition');
+      });
+    </script>
   </body>
 </html>

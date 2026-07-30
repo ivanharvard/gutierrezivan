@@ -1,120 +1,174 @@
-import { useProjects } from '../data/projects';
 import { useExperiences } from '../data/experiences';
-import ProjectCard from './ProjectCard';
+import { useProjects } from '../data/projects';
+import type { Section } from '../types/section';
 import ExperienceCard from './ExperienceCard';
+import ProjectCard from './ProjectCard';
 
-export default function SectionView(
-    { section }: { section: 'root' | 'about' | 'projects' | 'contact' | 'experience' }
-) {
-    const { data: projects } = useProjects();
-    const { data: experiences } = useExperiences();
-    
-    // Calculate Harvard role based on current date
-    const getHarvardRole = () => {
-        const today = new Date();
-        const eoySpring2026 = new Date("2026-05-31");
-        const eoySpring2027 = new Date("2027-05-31");
+type Props = {
+  onNavigate: (section: Section) => void;
+  onOpenTerminal: () => void;
+};
 
-        if (today < eoySpring2026) {
-            return "junior at Harvard studying Computer Science";
-        } else if (today < eoySpring2027) {
-            return "senior at Harvard studying Computer Science";
-        } else {
-            return "recent Harvard graduate with a B.A. in Computer Science";
-        }
-    };
+function getHarvardRole() {
+  const today = new Date();
+  const graduation = new Date('2027-05-31T23:59:59');
 
-    if (section === 'root') {
-        return (
-            <section aria-label="Intro">
-                <div className="card">
-                    <p>Hi there! Press <code>`</code> to open the terminal. Alternatively, you can click any of the above buttons.</p>
-                </div>
-            </section>
-        );
-    }
-    if (section === 'about') {
-        return (
-            <section id="about">
-                <h2>about/</h2>
-                <div className="card">
-                    <p id="aboutText">
-                        Hey! My name is Ivan. I'm a <span id="harvardRole">{getHarvardRole()}</span>.
-                        <br /><br />
-                        I grew up in Destin, FL, a small town known for its white sand beaches. I currently live in Cambridge, MA while attending Harvard University. I think the field of Computer Science can feel particularly daunting to those who are just starting out, so I feel uniquely inclined to make Computer Science as accessible as possible, regardless of background. I strive to participate in efforts that promote CS education for all.
-                        <br /><br />
-                        I also have a great interest in privacy and security, and I enjoy investigating technologies that are designed to protect (and steal!) user data. I've met some of the most fascinating professors and researchers through my interest in this field, and I look forward to continuing to learn more about it in the future. Hopefully, I'll get to build more projects that prioritize user privacy while still delivering great user experiences.
-                        <br /><br />
-                        In my free time, I enjoy going to the movie theater! #proudAMCALister
-                        <br /><br />
-                        Feel free to <a href="#contact">reach out</a> if you'd like to connect.
-                    </p>
-                </div>
-                <br />
-                <div className="card-centered">
-                    <div className="centered-row">
-                        <img src="images/hhchina.jpg" className="card-img" width="60%"/>
-                        <img src="images/halloween.jpg" className="card-img" width="30%"/>
-                    </div>
-                    <div className="centered-row">
-                        <img src="images/zoe.jpg" className="card-img" width="44%"/>
-                        <img src="images/kenny.jpg" className="card-img" width="50%"/>
-                    </div>
-                    {/* <div className="centered-row">
-                        <img src="images/airport.jpg" className="card-img" width="25%"/>
-                    </div> */}
-                    <div className="centered-row">
-                        <img src="images/nye.jpg" className='card-img' width="53%"/>
-                        <img src="images/ciara.jpg" className='card-img' width="30%"/>
-                    </div>
-                </div>
-            </section>
-        );
-    }
-    if (section === 'experience') {
-        return (
-            <section id="experience">
-                <h2>experience/</h2>
-                <div className="experience">
-                    {experiences && experiences.map((exp, index) => (
-                        <ExperienceCard key={`${exp.organization}-${index}`} {...exp} />
-                    ))}
-                </div>
-            </section>
-        );
-    }
-    if (section === 'projects') {
-        return (
-            <section id="projects">
-                <h2>projects/</h2>
-                {/* Load projects */}
-                <div className="projects">
-                    {projects && projects.map((project) => (
-                        <ProjectCard key={project.title} {...project} />
-                    ))}
-                </div>
-            </section>
-        );
-    }
-    if (section === 'contact') {
-        return (
-            <section id="contact">
-                <h2>contact/</h2>
-                <div className="card">
-                    <div className="contact-item">
-                        <span className="icon-img fa-solid fa-envelope"></span>
-                        <a href="mailto:igzjobs@gmail.com" id="email">igzjobs@gmail.com</a>
-                    </div>
-                    <div className="contact-item">
-                        <span className="icon-img fa-brands fa-github"></span>
-                        <a href="https://www.github.com/ivanharvard" id="github" target="_blank" rel="noopener noreferrer">github.com/ivanharvard</a>
-                    </div>
-                    <div className="contact-item">
-                        <span className="icon-img fa-brands fa-linkedin"></span>
-                        <a href="https://www.linkedin.com/in/-ivan-gutierrez/" id="linkedin" target="_blank" rel="noopener noreferrer">linkedin.com/in/-ivan-gutierrez</a>
-                    </div>
-                </div>
-            </section>
-        );
-    }
+  if (today <= graduation) {
+    return 'Harvard senior studying Computer Science';
+  }
+
+  return 'Harvard graduate with a B.A. in Computer Science';
+}
+
+export default function SectionView({ onNavigate, onOpenTerminal }: Props) {
+  const { data: projects } = useProjects();
+  const { data: experiences } = useExperiences();
+
+  return (
+    <>
+      <section className="hero" aria-labelledby="hero-title">
+        <div className="hero-copy">
+          <p className="eyebrow"><span /> Software engineer · Data scientist</p>
+          <h1 id="hero-title">BUILDING<br />WITH <em>SIGNAL.</em></h1>
+          <p className="hero-intro">
+            I&apos;m Ivan, a Harvard computer scientist building useful systems across software,
+            data, privacy, and education.
+          </p>
+          <div className="hero-actions">
+            <button type="button" className="button button-primary" onClick={() => onNavigate('projects')}>
+              Explore my work <span aria-hidden="true">&darr;</span>
+            </button>
+            <button type="button" className="button button-secondary" onClick={onOpenTerminal}>
+              Open terminal <kbd>`</kbd>
+            </button>
+          </div>
+        </div>
+
+        <aside className="signal-card" aria-label="Profile summary">
+          <div className="signal-card-topline">
+            <span>CAMBRIDGE, MA</span>
+            <span>EST. 2004</span>
+          </div>
+          <div className="portrait-frame">
+            <img src="/images/avatar.jpg" alt="Ivan Gutierrez" width="200" height="200" />
+          </div>
+          <div className="signal-card-bottom">
+            <p>IVAN<br />GUTIERREZ</p>
+            <div>
+              <span className="status-dot" aria-hidden="true" />
+              OPEN TO BUILDING<br />INTERESTING THINGS
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section className="content-section about-section" id="about" aria-labelledby="about-title">
+        <div className="section-heading">
+          <span className="section-number">01</span>
+          <div>
+            <p className="section-kicker">The person behind the work</p>
+            <h2 id="about-title">ABOUT</h2>
+          </div>
+        </div>
+
+        <div className="about-layout">
+          <div className="about-copy" id="aboutText">
+            <p className="about-lede">
+              Curiosity got me into computer science. A desire to make it more useful—and more
+              accessible—keeps me here.
+            </p>
+            <div className="about-columns">
+              <p>
+                Hey, I&apos;m Ivan, a <span id="harvardRole">{getHarvardRole()}</span>. I grew up in
+                Destin, Florida, and now live in Cambridge, Massachusetts. I care deeply about
+                making computer science less daunting for people just starting out, regardless of
+                background.
+              </p>
+              <p>
+                I&apos;m especially interested in privacy and security: the technologies designed to
+                protect user data, and the ones designed to take it. Away from the keyboard, you&apos;ll
+                usually find me at a movie theater proudly getting value from my AMC A-List.
+              </p>
+            </div>
+            <button type="button" className="text-button about-link" onClick={() => onNavigate('contact')}>
+              Let&apos;s make something useful <span aria-hidden="true">&rarr;</span>
+            </button>
+          </div>
+
+          <div className="photo-grid" aria-label="Photos from Ivan's life">
+            <figure className="photo-wide">
+              <img src="/images/hhchina.jpg" alt="Ivan with friends at HackHarvard" loading="lazy" />
+            </figure>
+            <figure>
+              <img src="/images/kenny.jpg" alt="Ivan with a friend outdoors" loading="lazy" />
+            </figure>
+            <figure>
+              <img src="/images/ciara.jpg" alt="Ivan and a friend at an event" loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section className="content-section" id="projects" aria-labelledby="projects-title">
+        <div className="section-heading section-heading-split">
+          <span className="section-number">02</span>
+          <div>
+            <p className="section-kicker">Selected engineering &amp; research</p>
+            <h2 id="projects-title">PROJECTS</h2>
+          </div>
+          <p className="section-summary">
+            From browser-native video tooling to privacy research and operating systems.
+          </p>
+        </div>
+
+        <div className="projects-list">
+          {projects.map((project, index) => (
+            <ProjectCard key={project.title} index={index + 1} {...project} />
+          ))}
+        </div>
+      </section>
+
+      <section className="content-section" id="experience" aria-labelledby="experience-title">
+        <div className="section-heading section-heading-split">
+          <span className="section-number">03</span>
+          <div>
+            <p className="section-kicker">Where I&apos;ve contributed</p>
+            <h2 id="experience-title">EXPERIENCE</h2>
+          </div>
+          <p className="section-summary">
+            Building software, teaching computer science, and leading technical communities.
+          </p>
+        </div>
+
+        <div className="experience-list">
+          {experiences.map((experience, index) => (
+            <ExperienceCard key={experience.organization} index={index + 1} {...experience} />
+          ))}
+        </div>
+      </section>
+
+      <section className="content-section contact-section" id="contact" aria-labelledby="contact-title">
+        <div className="contact-panel">
+          <div className="contact-label">
+            <span className="section-number">04</span>
+            <p>Have a real problem<br />worth solving?</p>
+          </div>
+          <div className="contact-main">
+            <h2 id="contact-title">LET&apos;S TALK.</h2>
+            <a className="contact-email" href="mailto:igzjobs@gmail.com" id="email">
+              igzjobs@gmail.com <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <div className="contact-links" aria-label="Social links">
+            <a href="https://www.github.com/ivanharvard" id="github" target="_blank" rel="noopener noreferrer">
+              GitHub <span aria-hidden="true">↗</span>
+            </a>
+            <a href="https://www.linkedin.com/in/-ivan-gutierrez/" id="linkedin" target="_blank" rel="noopener noreferrer">
+              LinkedIn <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }

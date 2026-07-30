@@ -5,12 +5,12 @@ type Mode = ThemeMode;
 const KEY = "theme";
 
 /// getTheme()
-///     Reads the theme from localStorage. If not found, returns 'auto'.
+///     Reads the theme from localStorage. The Bold Signal design defaults to dark.
 
 export function getTheme(): Exclude<Mode, 'toggle'> {
     const saved = localStorage.getItem(KEY) as Mode | null;
     if (saved === 'toggle' || saved === null) {
-        return 'auto';
+        return 'dark';
     }
     return saved;
 }
@@ -27,9 +27,7 @@ export function setTheme(mode: Mode) {
     }
 
     if (mode === "auto") {
-        // remove manual override of theme
-        root.removeAttribute("data-theme");
-        localStorage.removeItem(KEY);
+        localStorage.setItem(KEY, 'auto');
         applyAuto();
         return;
     }
@@ -60,5 +58,17 @@ export function setTheme(mode: Mode) {
 
 export function applyAuto() {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setTheme(prefersDark ? "dark" : "light");
+    const themeName: ThemeName = prefersDark ? 'dark' : 'light';
+    const root = document.documentElement;
+    const { colors } = THEME_CONFIG[themeName];
+
+    root.setAttribute('data-theme', themeName);
+    root.style.setProperty('--bg', colors.bg);
+    root.style.setProperty('--text', colors.text);
+    root.style.setProperty('--muted', colors.muted);
+    root.style.setProperty('--card', colors.card);
+    root.style.setProperty('--ring', colors.ring);
+    root.style.setProperty('--accent', colors.accent);
+    root.style.setProperty('--mono-bg', colors.monoBg);
+    root.style.setProperty('--mono-text', colors.monoText);
 }

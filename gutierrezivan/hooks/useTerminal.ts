@@ -1,12 +1,13 @@
-import { useEffect, useMemo, useCallback, useRef, useState } from "react";
+import { useMemo, useCallback, useRef, useState } from "react";
 import type { Project } from "../src/types/Project";
 import type { ThemeMode } from "../src/themeConfig";
 import { getThemeListWithAuto, getThemeNames } from "../src/themeConfig";
 import type { Experience } from "../src/types/Experience";
+import type { Section } from "../src/types/section";
 
 export type TerminalCtx = {
     who?: { user: string; host: string };
-    navigate: (section: "about" | "projects" | "contact" | "experience") => void;
+    navigate: (section: Section) => void;
     setTheme: (mode: ThemeMode) => void;
     downloadResume: () => void;
     openTerminal?: () => void;
@@ -72,7 +73,7 @@ export function useTerminal(ctx: TerminalCtx) {
     const [lines, setLines]      = useState<string[]>(["Type 'help' to get started."]);
     const [cmd, setCmd]          = useState("");
     const [history, setHistory]  = useState<string[]>([]);
-    const [_histIdx, setHistIdx] = useState<number | null>(null);
+    const [, setHistIdx] = useState<number | null>(null);
 
     const [cwd, setCwd]          = useState<string>(HOME);
 
@@ -208,10 +209,7 @@ export function useTerminal(ctx: TerminalCtx) {
         
         // If we're at home (~) or root (/), go to root page
         if (tilde === "~" || targetAbs === "/" || tilde === "~/") {
-            // Go to root/home page without scrolling
-            const url = `${location.pathname}${location.search}`;
-            window.history.pushState({}, '', url);
-            window.dispatchEvent(new PopStateEvent('popstate'));
+            ctx.navigate('root');
             return true;
         }
         
@@ -219,7 +217,7 @@ export function useTerminal(ctx: TerminalCtx) {
         if (tilde.startsWith("~/")) {
             const seg = tilde.slice(2).split(SLASH)[0]; // about | projects | contact | experience
             if (seg === "about" || seg === "projects" || seg === "contact" || seg === "experience") {
-                ctx.navigate(seg as "about" | "projects" | "contact" | "experience");
+                ctx.navigate(seg as Exclude<Section, 'root'>);
                 // Ensure terminal stays open and refocused after navigation
                 setTimeout(() => {
                     ctx.openTerminal?.();
@@ -253,10 +251,7 @@ export function useTerminal(ctx: TerminalCtx) {
         cd: (arg: string | undefined) => {
             if (!arg) { 
                 setCwd(HOME); 
-                // Navigate to root page when going to home without scrolling
-                const url = `${location.pathname}${location.search}`;
-                window.history.pushState({}, '', url);
-                window.dispatchEvent(new PopStateEvent('popstate'));
+                ctx.navigate('root');
                 return; 
             }
             const ok = chdir(arg);
@@ -284,8 +279,8 @@ export function useTerminal(ctx: TerminalCtx) {
                 print(`usage: theme [${getThemeListWithAuto()}]`);
                 return;
             }
-            const validThemes = [...getThemeNames(), 'auto'];
-            if (validThemes.includes(arg as any)) {
+            const validThemes: ThemeMode[] = [...getThemeNames(), 'auto'];
+            if (validThemes.includes(arg as ThemeMode)) {
                 ctx.setTheme(arg as ThemeMode);
             } else {
                 print(`usage: theme [${getThemeListWithAuto()}]`);
@@ -489,8 +484,6 @@ export function useTerminal(ctx: TerminalCtx) {
         }
     }), [cwd, print, clear, listDir, chdir, resolve, ctx]);    
     
-    const commandNames = () => Object.keys(registry);
-
     const executeCommand = useCallback((input: string) => {
         const trimmed = input.trim();
         print(`${prompt()} ${trimmed}`);
@@ -549,7 +542,7 @@ export function useTerminal(ctx: TerminalCtx) {
             const partial = parts[1] || "";
 
             if (parts.length == 1) {
-                const matches = commandNames().filter(n => n.startsWith(head));
+                const matches = Object.keys(registry).filter(n => n.startsWith(head));
                 if (matches.length === 1) setCmd(matches[0] + " ");
                 else if (matches.length > 1) print(matches.join("  "));
                 return;
@@ -572,12 +565,7 @@ export function useTerminal(ctx: TerminalCtx) {
                 }
             }
         }
-    }, [cmd, history, listDir, clear, print]);
-
-    // update projects dir when projects change
-    useEffect(() => {
-        // no-op; vfs rebuilds via useMemo deps
-    }, [ctx.projects]);
+    }, [cmd, history, listDir, clear, print, cwd, registry]);
 
     return { lines, cmd, setCmd, bodyRef, print, clear, executeCommand, prompt, onKeyDown };
 }

@@ -3,14 +3,14 @@ import { useTerminal } from "../../hooks/useTerminal";
 import { useProjects } from "../data/projects";
 import { setTheme } from "../theme";
 import { useExperiences } from "../data/experiences";
+import type { Section } from "../types/section";
 
 type Props = {
   open: boolean;
   onOpen: () => void;
   onClose: () => void;
   email?: string;
-  // Navigate to a site section without scrolling the page
-  navigate?: (section: "about" | "projects" | "contact" | "experience") => void;
+  navigate?: (section: Section) => void;
 };
 
 const DEFAULT_WINDOW_HEIGHT = 0.4;
@@ -42,11 +42,7 @@ export default function TerminalOverlay({
       if (navigate) {
         navigate(section);
       } else {
-        // Fallback: update history manually without triggering scroll
-        const url = `${location.pathname}${location.search}#${section}`;
-        window.history.pushState({ section }, '', url);
-        // Inform any listeners relying on popstate to sync state
-        window.dispatchEvent(new PopStateEvent('popstate'));
+        document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
       }
     },
     setTheme: (mode) => setTheme(mode),
@@ -85,7 +81,7 @@ export default function TerminalOverlay({
       // Unfocus the input when terminal closes
       inputRef.current?.blur();
     }
-  }, [open]);
+  }, [open, bodyRef]);
 
   useEffect(() => {
     const t = setInterval(() => {
@@ -201,7 +197,7 @@ export default function TerminalOverlay({
     <div
       className={`terminal ${open ? "open" : ""} ${nudging ? "nudge" : ""} ${isDragging ? "dragging" : ""}`}
       style={{ height, bottom: open ? 0 : `calc(-${height}px + 36px)` }}
-      role="dialog" aria-modal="true" aria-label="Terminal"
+      role="region" aria-label="Interactive terminal"
       onMouseDown={onTerminalMouseDown}
       onMouseUp={onTerminalMouseUp}
       onMouseMove={() => (lastInteractRef.current = Date.now())}

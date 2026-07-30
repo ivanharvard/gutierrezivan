@@ -18,14 +18,14 @@ export const THEME_CONFIG = {
         name: 'dark',
         displayName: 'Dark',
         colors: {
-        bg: '#0b0b0b',
-        text: '#eaeaea',
-        muted: '#9b9b9b',
-        card: '#111111',
-        ring: '#1f2937',
-        accent: '#7dd3fc',
+        bg: '#1a1a1a',
+        text: '#f4f2ed',
+        muted: '#969696',
+        card: '#222222',
+        ring: '#3a3a3a',
+        accent: '#ff5722',
         monoBg: '#0c0c0c',
-        monoText: '#e6e6e6',
+        monoText: '#eceae5',
         }
     },
     crimson: {

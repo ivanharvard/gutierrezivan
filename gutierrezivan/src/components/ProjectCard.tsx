@@ -1,28 +1,32 @@
-import type { Project } from "../types/Project";
+import type { Project } from '../types/Project';
 
-export default function ProjectCard(
-    { title, blurb, liveUrl, codeUrl, tags }: Project
-) {
-    return (
-        <article className="card proj">
-            <div className="content">
-                <h3>{title}</h3>
-                <p>{blurb}</p>
-            </div>
-            {/* Checks if tags exists */}
-            {tags?.length ? (
-                // If tags exists, render each one
-                <div className="tags">
-                    {tags.map((t: string) => (
-                        <span key={t} className="tag">{t}</span>
-                    ))}
-                </div>
-            ) : null}
-            {/* Hyperlinks */}
-            <div className="actions">
-                {liveUrl && <a className="btn" href={liveUrl} target="_blank" rel="noreferrer">Visit</a>}
-                {codeUrl && <a className="btn" href={codeUrl} target="_blank" rel="noreferrer">See Code</a>}
-            </div>
-        </article>
-    )
+type Props = Project & { index: number };
+
+export default function ProjectCard({ title, blurb, liveUrl, codeUrl, tags, index }: Props) {
+  return (
+    <article className="project-card">
+      <div className="project-index">P/{String(index).padStart(2, '0')}</div>
+      <div className="project-content">
+        <h3>{title}</h3>
+        <p>{blurb}</p>
+        {tags?.length ? (
+          <ul className="tags" aria-label={`${title} technologies`}>
+            {tags.map((tag) => <li key={tag}>{tag}</li>)}
+          </ul>
+        ) : null}
+      </div>
+      <div className="project-actions">
+        {liveUrl ? (
+          <a href={liveUrl} target="_blank" rel="noreferrer">
+            View project <span aria-hidden="true">↗</span>
+          </a>
+        ) : null}
+        {codeUrl ? (
+          <a href={codeUrl} target="_blank" rel="noreferrer">
+            Source <span aria-hidden="true">↗</span>
+          </a>
+        ) : null}
+      </div>
+    </article>
+  );
 }
