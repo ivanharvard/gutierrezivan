@@ -37,7 +37,7 @@ export default function SectionView({ onNavigate, onOpenTerminal }: Props) {
         <aside className="signal-card" aria-label="Profile summary">
           <div className="signal-card-topline">
             <span>CAMBRIDGE, MA</span>
-            <span>EST. 2004</span>
+            <span>EST. 2005</span>
           </div>
           <div className="portrait-frame">
             <img src="/images/avatar.jpg" alt="Ivan Gutierrez" width="200" height="200" />
