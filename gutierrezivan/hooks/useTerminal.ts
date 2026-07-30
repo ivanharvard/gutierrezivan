@@ -4,10 +4,12 @@ import type { ThemeMode } from "../src/themeConfig";
 import { getThemeListWithAuto, getThemeNames } from "../src/themeConfig";
 import type { Experience } from "../src/types/Experience";
 import type { Section } from "../src/types/section";
+import { slugify } from "../src/utils/slug";
 
 export type TerminalCtx = {
     who?: { user: string; host: string };
     navigate: (section: Section) => void;
+    navigateToItem: (elementId: string) => void;
     setTheme: (mode: ThemeMode) => void;
     openResume: () => void;
     openTerminal?: () => void;
@@ -68,9 +70,6 @@ function toTilde(abs: string): string {
     return abs;
 }
 
-const slug = (s: string) =>
-    s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-
 // ======== HOOK ==========
 
 export function useTerminal(ctx: TerminalCtx) {
@@ -122,7 +121,7 @@ export function useTerminal(ctx: TerminalCtx) {
         const projectsDir: NodeDir = { type: "dir", entries: {} };
         const projList = ctx.projects || [];
         for (const p of projList) {
-            const name = `${p.title}.proj`;
+            const projectKey = slugify(p.title) || "project";
             const body = [
                 `Title: ${p.title}`,
                 p.blurb ? `Blurb: ${p.blurb}` : "",
@@ -130,7 +129,9 @@ export function useTerminal(ctx: TerminalCtx) {
                 p.codeUrl ? `Code: ${p.codeUrl}` : "",
                 p.tags && p.tags.length ? `Tags: ${p.tags.join(", ")}` : "",
             ].filter(Boolean).join("\n");
-            projectsDir.entries[name] = { type: "file", content: body || p.title || name };
+            projectsDir.entries[projectKey] = { type: "dir", entries: {
+                "project.txt": { type: "file", content: body || p.title || projectKey },
+            } };
         }
         home.entries["projects"] = projectsDir;
 
@@ -139,11 +140,11 @@ export function useTerminal(ctx: TerminalCtx) {
         const expList = ctx.experience || [];
 
         for (const e of expList) {
-            const orgKey = slug(e.organization) || e.organization;
+            const orgKey = slugify(e.organization) || e.organization;
             const orgDir: NodeDir = { type: "dir", entries: {} };
 
             for (const r of e.roles) {
-                const baseSlug = slug(r.title) || "role";
+                const baseSlug = slugify(r.title) || "role";
                 const roleKeyBase = `${baseSlug}.role`;
                 let roleKey = roleKeyBase;
                 let counter = 2;
@@ -222,9 +223,14 @@ export function useTerminal(ctx: TerminalCtx) {
         
         // If we're in a subdirectory of home, navigate to that section
         if (tilde.startsWith("~/")) {
-            const seg = tilde.slice(2).split(SLASH)[0]; // about | projects | contact | experience
+            const [seg, item] = tilde.slice(2).split(SLASH);
             if (seg === "about" || seg === "projects" || seg === "contact" || seg === "experience") {
-                ctx.navigate(seg as Exclude<Section, 'root'>);
+                if (item && (seg === "projects" || seg === "experience")) {
+                    const itemType = seg === "projects" ? "project" : "experience";
+                    ctx.navigateToItem(`${itemType}-${item}`);
+                } else {
+                    ctx.navigate(seg as Exclude<Section, 'root'>);
+                }
                 // Ensure terminal stays open and refocused after navigation
                 setTimeout(() => {
                     ctx.openTerminal?.();
@@ -239,7 +245,10 @@ export function useTerminal(ctx: TerminalCtx) {
 
     const registry = useMemo(() => ({
         help: () =>
-        print(`Commands: help, ls [path], pwd, cd [path], cat <file>, theme [${getThemeListWithAuto()}], rm [-rf] [path], resume, clipforge, see-code, clear`),
+        print([
+            `Commands: help, ls [path], pwd, cd [path], cat <file>, theme [${getThemeListWithAuto()}], rm [-rf] [path], resume, clipforge, see-code, clear`,
+            `Navigate: cd projects/clipforge | cd experience/harvard-university`,
+        ].join("\n")),
 
         clear: () => clear(),
 

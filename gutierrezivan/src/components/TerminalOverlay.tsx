@@ -46,6 +46,12 @@ export default function TerminalOverlay({
         document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
       }
     },
+    navigateToItem: (elementId) => {
+      document.getElementById(elementId)?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    },
     setTheme: (mode) => setTheme(mode),
     openResume: () => (document.getElementById("resumeLink") as HTMLAnchorElement | null)?.click(),
     openTerminal: () => {

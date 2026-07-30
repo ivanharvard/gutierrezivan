@@ -1,4 +1,5 @@
 import type { Experience } from '../types/Experience';
+import { slugify } from '../utils/slug';
 
 type Props = Experience & { index: number };
 
@@ -16,7 +17,7 @@ export default function ExperienceCard({ organization, roles, url, tags, type, i
   const sortedRoles = [...roles].sort((a, b) => parseDate(b.startDate) - parseDate(a.startDate));
 
   return (
-    <article className="experience-card">
+    <article className="experience-card" id={`experience-${slugify(organization)}`}>
       <div className="experience-meta">
         <span>E/{String(index).padStart(2, '0')}</span>
         <span>{type}</span>

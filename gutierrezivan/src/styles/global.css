@@ -517,14 +517,14 @@ h2 {
 }
 
 .project-card:first-child {
-  grid-column: span 7;
+  grid-column: span 6;
   color: #1a1a1a;
   background: #efede6;
   border-color: #efede6;
 }
 
 .project-card:nth-child(2) {
-  grid-column: span 5;
+  grid-column: span 6;
 }
 
 .project-card:hover {
