@@ -6,6 +6,13 @@
         "tags": ["TypeScript", "React", "Vite", "HTML/CSS"]
     },
     {
+        "title": "ClipForge",
+        "blurb": "A browser-based video editor for trimming, transforming, and compressing files locally with Rust and WebAssembly.",
+        "liveUrl": "/clipforge/",
+        "codeUrl": "https://github.com/ivanharvard/clipforge",
+        "tags": ["Rust", "WebAssembly", "React", "FFmpeg"]
+    },
+    {
         "title": "QGuider",
         "blurb": "A fluent, object-oriented Python library for downloading and scraping Harvard's student-submitted course reviews (QGuides), with over 375 downloads on PyPI in under 30 days.",
         "liveUrl": "https://pypi.org/project/qguider/",

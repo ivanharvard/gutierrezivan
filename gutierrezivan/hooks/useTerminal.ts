@@ -234,7 +234,7 @@ export function useTerminal(ctx: TerminalCtx) {
 
     const registry = useMemo(() => ({
         help: () =>
-        print(`Commands: help, ls [path], pwd, cd [path], cat <file>, theme [${getThemeListWithAuto()}], rm [-rf] [path], download, see-code, clear`),
+        print(`Commands: help, ls [path], pwd, cd [path], cat <file>, theme [${getThemeListWithAuto()}], rm [-rf] [path], download, clipforge, see-code, clear`),
 
         clear: () => clear(),
 
@@ -295,6 +295,11 @@ export function useTerminal(ctx: TerminalCtx) {
         download: () => {
             print("Downloading resume...");
             ctx.downloadResume();
+        },
+
+        clipforge: () => {
+            print("Opening ClipForge...");
+            window.location.assign("/clipforge/");
         },
 
         "see-code": () => {
