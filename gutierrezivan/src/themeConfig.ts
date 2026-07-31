@@ -50,8 +50,8 @@ export const THEME_CONFIG = {
             text: '#eaeaea',
             muted: '#9b9b9b',
             card: '#111111',
-            ring: '#1f2937',
-            accent: '#7dd3fc',
+            ring: '#293529',
+            accent: '#33ff33',
             monoBg: '#0c0c0c',
             monoText: '#33ff33',
         }

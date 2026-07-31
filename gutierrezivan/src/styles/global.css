@@ -908,7 +908,6 @@ h2 {
 
 .input-line .prompt {
   flex: 0 0 auto;
-  color: var(--accent);
   white-space: pre;
 }
 
