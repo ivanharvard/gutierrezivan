@@ -70,6 +70,20 @@ export const THEME_CONFIG = {
             monoText: '#dcdcff',
         }
     },
+    'dark-periwinkle': {
+        name: 'dark-periwinkle',
+        displayName: 'Dark Periwinkle',
+        colors: {
+            bg: '#1a1a1a',
+            text: '#f4f2ed',
+            muted: '#969696',
+            card: '#222222',
+            ring: '#3a3a3a',
+            accent: '#896cfc',
+            monoBg: '#0c0c0c',
+            monoText: '#eceae5',
+        }
+    },
     forest: {
         name: 'forest',
         displayName: 'Forest',
