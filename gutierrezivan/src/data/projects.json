@@ -7,7 +7,7 @@
     },
     {
         "title": "ClipForge",
-        "blurb": "A lightweight single-clip video trimmer for Windows, Linux, and the web, with a shared Rust core and on-device processing through FFmpeg.",
+        "blurb": "A lightweight video editor for Windows, Linux, and the web, with a shared Rust core and on-device processing through FFmpeg.",
         "liveUrl": "/clipforge/",
         "codeUrl": "https://github.com/ivanharvard/clipforge",
         "tags": ["Rust", "Slint", "libmpv", "FFmpeg", "WebAssembly", "React"]
