@@ -9,6 +9,7 @@
   --accent: #ff5722;
   --mono-bg: #0c0c0c;
   --mono-text: #eceae5;
+  --radius-card: 1rem;
   --display: 'Archivo Black', 'Arial Black', sans-serif;
   --body: 'Space Grotesk', system-ui, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -63,6 +64,17 @@ img {
   display: block;
 }
 
+main,
+section,
+article,
+.hero-copy,
+.project-content,
+.experience-org,
+.roles-timeline,
+.contact-main {
+  min-width: 0;
+}
+
 ::selection {
   color: #1a1a1a;
   background: var(--accent);
@@ -82,7 +94,7 @@ img {
   z-index: 500;
   padding: 0.65rem 0.85rem;
   transform: translateY(-160%);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-card);
   color: #1a1a1a;
   background: var(--accent);
   font-weight: 600;
@@ -102,9 +114,22 @@ img {
   grid-template-columns: minmax(10rem, 0.75fr) minmax(27rem, 1.6fr) auto;
   align-items: center;
   gap: 1.25rem;
+  isolation: isolate;
+}
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  z-index: -1;
+  width: 100vw;
+  transform: translateX(-50%);
   border-bottom: 1px solid var(--ring);
   background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
+  pointer-events: none;
 }
 
 .wordmark {
@@ -175,7 +200,7 @@ img {
   gap: 0.55rem;
   padding: 0.68rem 0.9rem;
   border: 1px solid var(--ring);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-card);
   background: transparent;
   font-size: 0.78rem;
   font-weight: 600;
@@ -320,7 +345,7 @@ h1 em {
   flex-direction: column;
   justify-content: space-between;
   padding: 1.25rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-card);
   background: var(--accent);
   color: #1a1a1a;
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.26);
@@ -472,7 +497,7 @@ h2 {
   min-height: 0;
   margin: 0;
   overflow: hidden;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-card);
   background: var(--card);
 }
 
@@ -508,7 +533,7 @@ h2 {
   gap: 1.5rem;
   padding: clamp(1.25rem, 2.5vw, 2rem);
   border: 1px solid var(--ring);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-card);
   background: color-mix(in srgb, var(--card) 82%, var(--bg));
   transition: transform 220ms ease-out, border-color 220ms ease-out, background-color 220ms ease-out;
 }
@@ -734,7 +759,7 @@ h2 {
   grid-template-rows: 1fr auto;
   gap: 2rem;
   padding: clamp(1.5rem, 4vw, 3.5rem);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-card);
   color: #1a1a1a;
   background: var(--accent);
 }
@@ -768,11 +793,14 @@ h2 {
 
 .contact-email {
   display: inline-block;
+  max-width: 100%;
   margin-top: 2rem;
   padding-bottom: 0.15rem;
   border-bottom: 2px solid #1a1a1a;
   font-size: clamp(1rem, 2vw, 1.35rem);
   font-weight: 600;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .contact-links {
@@ -812,7 +840,7 @@ h2 {
   flex-direction: column;
   overflow: hidden;
   border-top: 1px solid color-mix(in srgb, var(--mono-text) 22%, var(--mono-bg));
-  border-radius: 0.5rem 0.5rem 0 0;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
   color: var(--mono-text);
   background: var(--mono-bg);
   box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.42);
@@ -894,6 +922,8 @@ h2 {
 .term-body .line {
   margin: 0;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .input-line {
@@ -1170,6 +1200,71 @@ html.theme-transitioning .tags li {
     max-width: 47%;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-shell {
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-left: max(1rem, env(safe-area-inset-left));
+  }
+
+  .site-header {
+    gap: 0.75rem;
+  }
+
+  .signal-card {
+    width: min(calc(100% - 0.35rem), 27rem);
+  }
+
+  .section-heading,
+  .section-heading-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .section-summary {
+    grid-column: 1;
+    margin-top: 0.5rem;
+  }
+
+  h2 {
+    font-size: clamp(2.35rem, 13vw, 4.75rem);
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .project-card,
+  .project-card:first-child,
+  .project-card:nth-child(2) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
+    gap: 1.25rem;
+  }
+
+  .project-content h3,
+  .project-content h3.url-title {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .project-actions {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 380px) {
+  .signal-card {
+    min-height: 29rem;
+  }
+
+  .signal-card-bottom {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .contact-panel {
+    padding: 1.25rem;
   }
 }
 
