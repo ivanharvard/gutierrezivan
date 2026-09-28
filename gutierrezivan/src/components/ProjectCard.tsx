@@ -3,11 +3,16 @@ import { slugify } from '../utils/slug';
 
 type Props = Project & { index: number };
 
-export default function ProjectCard({ title, blurb, liveUrl, codeUrl, tags, index }: Props) {
+export default function ProjectCard({ title, blurb, liveUrl, codeUrl, categories, tags, index }: Props) {
   return (
     <article className="project-card" id={`project-${slugify(title)}`}>
       <div className="project-index">P/{String(index).padStart(2, '0')}</div>
       <div className="project-content">
+        {categories?.length ? (
+          <ul className="project-categories" aria-label={`${title} categories`}>
+            {categories.map((category) => <li key={category}>{category}</li>)}
+          </ul>
+        ) : null}
         <h3 className={title === 'gutierrezivan.com' ? 'url-title' : undefined}>{title}</h3>
         <p>{blurb}</p>
         {tags?.length ? (

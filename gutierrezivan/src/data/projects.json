@@ -1,20 +1,22 @@
 [
     {
-        "title": "gutierrezivan.com",
-        "blurb": "My personal website (that you're on right now!) built with React and Vite.",
-        "codeUrl": "https://github.com/ivanharvard/gutierrezivan",
-        "tags": ["TypeScript", "React", "Vite", "HTML/CSS"]
+        "title": "BitterASM",
+        "blurb": "A metalanguage for constructing assembly languages that assumes practically nothing about the target architecture.",
+        "categories": ["open source", "software"],
+        "liveUrl": "https://crates.io/crates/bitterasm",
+        "codeUrl": "https://github.com/ivanharvard/bitterasm",
+        "tags": ["Rust", "Assembly", "Compilers"]
     },
     {
-        "title": "ClipForge",
-        "blurb": "A lightweight video editor for Windows, Linux, and the web, with a shared Rust core and on-device processing through FFmpeg.",
-        "liveUrl": "/clipforge/",
-        "codeUrl": "https://github.com/ivanharvard/clipforge",
-        "tags": ["Rust", "Slint", "libmpv", "FFmpeg", "WebAssembly", "React"]
+        "title": "An Infrastructure for Large-Scale Empirical Analysis of C-to-Rust Software Migrations",
+        "blurb": "An in-progress research project  that uses static analysis and machine learning to measure and display the possible costs of a C-to-Rust migration.",
+        "categories": ["research", "software"],
+        "tags": ["Rust", "C", "Static Analysis", "Machine Learning", "Data Science"]
     },
     {
         "title": "QGuider",
         "blurb": "A fluent, object-oriented Python library for downloading and scraping Harvard's student-submitted course reviews (QGuides), with over 375 downloads on PyPI in under 30 days.",
+        "categories": ["open source", "software"],
         "liveUrl": "https://pypi.org/project/qguider/",
         "codeUrl": "https://github.com/ivanharvard/qguider",
         "tags": ["Python", "Web Scraping", "Data Science"]
@@ -22,18 +24,21 @@
     {
         "title": "Chickadee OS",
         "blurb": "A UNIX-like multiprocessor teaching OS, implementing virtual memory, process and thread management, system calls, PC Speaker support, and designing a virtual file system (VFS) abstraction.",
+        "categories": ["software"],
         "liveUrl": "https://read.seas.harvard.edu/cs1610/2026/",
         "tags": ["C++", "Operating Systems"] 
     },
     {
         "title": "FirstAid-LLM",
         "blurb": "A first-aid chatbot that uses a large language model (LLM) using retrieval-augmented generation (RAG) of over 180+ quality first-aid documents to provide accurate first-aid information.",
+        "categories": ["open source", "software"],
         "codeUrl": "https://github.com/firstaid-llm/AC215_firstaid-llm/",
-        "tags": ["Docker", "Kubernetes", "Pulumi", "Github Actions", "Python", "FastAPI", "PyTorch", "Streamlit"]
+        "tags": ["Docker", "Kubernetes", "Pulumi", "FastAPI", "PyTorch"]
     },
     {
         "title": "DP Summarization",
         "blurb": "A research project that created and implemented two distinct algorithms that apply differential privacy (DP) to tasks surrounding summarizing private documents.",
+        "categories": ["research"],
         "liveUrl": "/pdf/CS2260_Poster.pdf",
         "codeUrl": "https://github.com/hskhalaf/dp-summarization",
         "tags": ["Python", "PyTorch", "Machine Learning", "Data Privacy", "Natural Language Processing"]
@@ -41,39 +46,17 @@
     {
         "title": "DPClustering",
         "blurb": "A research project that implements a Python package to investigate the application of differential privacy (DP) to common clustering algorithms.",
+        "categories": ["research", "open source", "software"],
         "liveUrl": "/pdf/CS2080_Poster.pdf",
         "codeUrl": "https://github.com/connorbuchheit/DPClustering",
         "tags": ["Python", "Machine Learning", "Data Science", "Data Privacy"]
     },
     {
-        "title": "Dual Markets: Upward Mobility in Destin and Okaloosa County",
-        "blurb": "A data science project that uses U.S. Census data to analyze the relationship between upward mobility of children and various socioeconomic factors in Destin and Okaloosa County, Florida.",
-        "liveUrl": "/pdf/EC50_Paper.pdf",
-        "tags": ["R", "Tidyverse", "Data Science", "Data Visualization", "Economics"]
-    },
-    {
-        "title": "Graphene",
-        "blurb": "A research paper search engine and visualization tool that uses citations to link related works together in a graph.",
-        "codeUrl": "https://github.com/cs1060f25/graph-project",
-        "tags": ["Node.js", "JavaScript", "React", "Vite", "HTML/CSS", "Firebase"]
-    },
-    {
-        "title": "Privacy-First Facial Recognition",
-        "blurb": "Blur-by-default face recognition that only activates on user participation (e.g., hand raise), then unblurs a small ROI to identify.",
-        "codeUrl": "https://github.com/ivanharvard/facialrecog-apcomp221",
-        "tags": ["Python", "Machine Learning", "Computer Vision", "Data Privacy"]
-    },
-    {
-        "title": "SQLito",
-        "blurb": "A SQL-like querying framework written entirely in Python using an OOP-based architecture.",
-        "codeUrl": "https://github.com/ivanharvard/sqlito",
-        "tags": ["Python", "SQL"]
-    },
-    {
-        "title": "NewsVibe",
-        "blurb": "A web app that uses machine learning to estimate the sentiment of news organizations on a user-inputted topic.",
-        "liveUrl": "https://drive.google.com/file/d/1EELO6WAPl9UNP_TBVcfwPnZEczUHEeZz/view?usp=sharing",
-        "codeUrl": "https://github.com/ivanharvard/newsvibe",
-        "tags": ["Python", "Flask", "HTML/CSS", "JavaScript", "Machine Learning"]
+        "title": "check50",
+        "blurb": "A Python library that provides a framework for writing and running automated tests for student code, used by over 5 million students and educators.",
+        "categories": ["open source", "software"],
+        "liveUrl": "https://cs50.readthedocs.io/projects/check50/en/stable/",
+        "codeUrl": "https://github.com/cs50/check50",
+        "tags": ["Python"]
     }
 ]

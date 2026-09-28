@@ -127,6 +127,7 @@ export function useTerminal(ctx: TerminalCtx) {
                 p.blurb ? `Blurb: ${p.blurb}` : "",
                 p.liveUrl ? `Live: ${p.liveUrl}` : "",
                 p.codeUrl ? `Code: ${p.codeUrl}` : "",
+                p.categories && p.categories.length ? `Categories: ${p.categories.join(", ")}` : "",
                 p.tags && p.tags.length ? `Tags: ${p.tags.join(", ")}` : "",
             ].filter(Boolean).join("\n");
             projectsDir.entries[projectKey] = { type: "dir", entries: {

@@ -571,6 +571,34 @@ h2 {
   color: #60605d;
 }
 
+.project-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.project-categories li {
+  padding: 0.28rem 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 65%, transparent);
+  border-radius: 999px;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.project-card:first-child .project-categories li {
+  color: color-mix(in srgb, var(--accent) 72%, #1a1a1a);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
 .project-content h3 {
   max-width: none;
   margin: 0 0 1rem;
@@ -985,7 +1013,8 @@ html.theme-transitioning .terminal,
 html.theme-transitioning .term-head,
 html.theme-transitioning .term-body,
 html.theme-transitioning .input-line input,
-html.theme-transitioning .tags li {
+html.theme-transitioning .tags li,
+html.theme-transitioning .project-categories li {
   transition-property: color, background-color, border-color, box-shadow;
   transition-duration: 320ms;
   transition-timing-function: ease-out;
