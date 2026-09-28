@@ -973,17 +973,12 @@ h2 {
   80% { transform: translateY(-3px); }
 }
 
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 320ms;
-  animation-timing-function: ease-out;
-}
-
 html.theme-transitioning body {
   animation: theme-fallback 320ms ease-out;
 }
 
 html.theme-transitioning .site-header,
+html.theme-transitioning .site-header::before,
 html.theme-transitioning .project-card,
 html.theme-transitioning .experience-card,
 html.theme-transitioning .terminal,

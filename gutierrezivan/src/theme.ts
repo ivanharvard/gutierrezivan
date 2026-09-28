@@ -1,10 +1,6 @@
 import { type ThemeMode, type ThemeName, THEME_CONFIG, getThemeNames } from './themeConfig';
 
 type Mode = ThemeMode;
-type TransitionDocument = Document & {
-    startViewTransition?: (update: () => void) => { finished: Promise<void> };
-};
-
 const KEY = 'theme';
 const TRANSITION_MS = 320;
 let fallbackTimer: number | undefined;
@@ -38,11 +34,7 @@ function updateWithTransition(update: () => void) {
         return;
     }
 
-    const transitionDocument = document as TransitionDocument;
-    if (transitionDocument.startViewTransition) {
-        transitionDocument.startViewTransition(update);
-        return;
-    }
+    // Keep the live DOM visible so the sticky header's backdrop blur is preserved.
 
     window.clearTimeout(fallbackTimer);
     root.classList.remove('theme-transitioning');
